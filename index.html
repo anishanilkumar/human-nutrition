@@ -799,7 +799,9 @@ $("#form").addEventListener("submit", (e) => {
   if (err) return;
   const h = new URLSearchParams({ s: p.sex, a: p.age, h: p.height, w: p.weight });
   if (p.bf != null) h.set("bf", p.bf);
-  location.hash = h.toString();   // triggers route()
+  // Setting an identical hash fires no hashchange, so re-route by hand.
+  if (location.hash.slice(1) === h.toString()) route();
+  else location.hash = h.toString();
 });
 $("#edit").addEventListener("click", () => { $("#result").hidden = true; $("#ask").hidden = false; $("#age").focus(); });
 $("#print").addEventListener("click", () => { document.querySelectorAll("details.more").forEach((d) => d.open = true); window.print(); });

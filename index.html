@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="en" translate="no">
+<head>
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Human Nutrition Facts</title>
+<meta name="description" content="What is the nutritional value of a human? A German/EU-style nutrition label for your body — energy, macronutrients, vitamins, minerals and trace elements.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%23111'/><text x='32' y='44' font-family='Arial' font-weight='700' font-size='30' text-anchor='middle' fill='%23fff'>℮</text></svg>">
+<style>
+:root {
+  --bg: #efeae1;
+  --bg-2: #e6dfd2;
+  --ink: #16140f;
+  --ink-2: #5d574c;
+  --line: #16140f;
+  --hair: #cfc6b6;
+  --paper: #fffdf8;
+  --paper-ink: #16140f;
+  --paper-ink-2: #5d574c;
+  --paper-hair: #d9d2c4;
+  --accent: #b23a1d;
+  --field: #fffdf8;
+  --focus: #1d5fb2;
+  --ns-a: #038141; --ns-b: #85bb2f; --ns-c: #fecb02; --ns-d: #ee8100; --ns-e: #e63e11;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161512; --bg-2: #1f1d19; --ink: #ece6da; --ink-2: #a39b8c;
+    --line: #ece6da; --hair: #3a362f; --field: #1f1d19; --accent: #e0714f; --focus: #7fb0ff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161512; --bg-2: #1f1d19; --ink: #ece6da; --ink-2: #a39b8c;
+  --line: #ece6da; --hair: #3a362f; --field: #1f1d19; --accent: #e0714f; --focus: #7fb0ff;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.5 "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding: 20px 16px 64px; }
+header.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 28px; }
+.brand { font-weight: 700; letter-spacing: .02em; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+.brand .e { display: inline-grid; place-items: center; width: 28px; height: 28px; border: 2px solid var(--ink); border-radius: 6px; font-size: 17px; }
+.lang { display: inline-flex; border: 1.5px solid var(--ink); border-radius: 999px; overflow: hidden; }
+.lang button { appearance: none; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 13px; font-weight: 700; padding: 5px 12px; cursor: pointer; }
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+button:focus-visible, input:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.warn { margin: 0 0 26px; padding: 10px 14px; border: 1.5px solid var(--accent); border-radius: 4px; font-size: 14px; line-height: 1.45; }
+.warn-k { font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; font-size: 12.5px; margin-right: 4px; }
+
+/* ---------- intro / form ---------- */
+.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
+.hero h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: clamp(38px, 6vw, 68px); line-height: 1.02; margin: 8px 0 18px; letter-spacing: -.01em; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero p.lead { font-size: 18px; color: var(--ink-2); max-width: 34em; margin: 0 0 14px; }
+.hero .note { font-size: 13px; color: var(--ink-2); }
+form.params { background: var(--paper); color: var(--paper-ink); border: 2px solid var(--line); border-radius: 4px; padding: 22px 22px 18px; box-shadow: 6px 6px 0 var(--line); }
+form.params h2 { margin: 0 0 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .12em; }
+form.params .sub { margin: 0 0 18px; font-size: 13px; color: var(--paper-ink-2); }
+.field { margin-bottom: 16px; }
+.field > label, .field > .lbl { display: block; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.field .hint { font-weight: 400; color: var(--paper-ink-2); font-size: 12.5px; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid var(--paper-ink); border-radius: 3px; overflow: hidden; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { text-align: center; padding: 9px 6px; cursor: pointer; font-size: 15px; }
+.seg label:last-of-type { border-left: 1.5px solid var(--paper-ink); }
+.seg input:checked + label { background: var(--paper-ink); color: var(--paper); }
+.seg input:focus-visible + label { outline: 2px solid var(--focus); outline-offset: -4px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.unit { display: flex; align-items: stretch; border: 1.5px solid var(--paper-ink); border-radius: 3px; background: #fff; }
+.unit input { flex: 1; min-width: 0; border: 0; background: transparent; font: inherit; font-size: 18px; padding: 8px 10px; color: #16140f; font-variant-numeric: tabular-nums; }
+.unit input:focus-visible { outline: none; }
+.unit:focus-within { outline: 2px solid var(--focus); outline-offset: 1px; }
+.unit span { display: grid; place-items: center; padding: 0 10px; font-size: 14px; color: var(--paper-ink-2); border-left: 1px solid var(--paper-hair); }
+.err { color: #b3261e; font-size: 13px; min-height: 1.2em; margin: 2px 0 10px; }
+.btn { appearance: none; border: 2px solid var(--paper-ink); background: var(--paper-ink); color: var(--paper); font: inherit; font-weight: 700; font-size: 16px; padding: 11px 18px; border-radius: 3px; cursor: pointer; width: 100%; }
+.btn:hover { background: var(--accent); border-color: var(--accent); }
+.ghost { appearance: none; background: transparent; color: var(--ink); border: 1.5px solid var(--ink); border-radius: 999px; font: inherit; font-size: 13px; font-weight: 700; padding: 6px 14px; cursor: pointer; }
+.ghost:hover { background: var(--ink); color: var(--bg); }
+
+/* ---------- result ---------- */
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 18px; }
+.toolbar .who { margin-right: auto; font-size: 14px; color: var(--ink-2); }
+.pack { display: grid; grid-template-columns: 340px 1fr; gap: 22px; align-items: start; }
+.panel { background: var(--paper); color: var(--paper-ink); border: 2px solid var(--line); border-radius: 4px; }
+.front { padding: 22px; position: sticky; top: 16px; display: flex; flex-direction: column; gap: 16px; min-height: 520px; }
+.front .since { font-size: 11px; text-transform: uppercase; letter-spacing: .16em; color: var(--paper-ink-2); }
+.front h2 { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-weight: 400; font-size: 46px; line-height: 1; margin: 2px 0 6px; }
+.front .kind { font-size: 15px; }
+.claims { display: flex; flex-wrap: wrap; gap: 6px; }
+.claim { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; border: 1.5px solid var(--paper-ink); border-radius: 999px; padding: 3px 9px; }
+.front .net { margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; border-top: 1.5px solid var(--paper-ink); padding-top: 12px; }
+.front .net .big { font-size: 34px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.front .net .small { font-size: 12px; color: var(--paper-ink-2); }
+.ns { display: inline-flex; flex-direction: column; border: 2px solid #8a8a8a; border-radius: 10px; padding: 4px 6px 6px; background: #fff; }
+.ns .t { font-size: 10px; font-weight: 700; color: #5a5a5a; letter-spacing: .04em; padding: 0 2px 3px; }
+.ns .row { display: flex; align-items: center; }
+.ns .l { width: 26px; height: 32px; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 17px; opacity: .55; }
+.ns .l:first-child { border-radius: 6px 0 0 6px; } .ns .l:last-child { border-radius: 0 6px 6px 0; }
+.ns .l.on { width: 38px; height: 44px; border-radius: 8px; opacity: 1; font-size: 26px; box-shadow: 0 0 0 2px #fff; position: relative; z-index: 1; margin: 0 -3px; }
+
+.back { padding: 20px 22px 22px; }
+.back h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .12em; margin: 22px 0 8px; }
+.back h3:first-child { margin-top: 0; }
+table.nt { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; border: 2px solid var(--paper-ink); }
+table.nt th, table.nt td { padding: 5px 9px; border-bottom: 1px solid var(--paper-ink); text-align: right; vertical-align: baseline; }
+table.nt th:first-child, table.nt td:first-child { text-align: left; }
+table.nt thead th { font-size: 13px; font-weight: 700; border-bottom: 2px solid var(--paper-ink); background: #f6f2ea; line-height: 1.25; }
+table.nt td.sub { padding-left: 22px; }
+table.nt tr.thick td { border-bottom-width: 2px; }
+table.nt td:nth-child(3), table.nt th:nth-child(3) { font-weight: 700; }
+table.nt td.pc, table.nt th.pc { width: 1%; white-space: nowrap; }
+.conf { display: inline-block; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--paper-ink); margin-left: 6px; vertical-align: 1px; }
+.conf.h { background: var(--paper-ink); }
+.conf.m { background: linear-gradient(90deg, var(--paper-ink) 50%, transparent 50%); }
+.conf.l { background: transparent; }
+.foot { font-size: 12px; color: var(--paper-ink-2); margin: 6px 0 0; line-height: 1.45; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--paper-ink-2); margin-top: 6px; }
+.legend .conf { margin: 0 4px 0 0; }
+.ingr { font-size: 14.5px; line-height: 1.55; margin: 0; }
+.ingr b { font-weight: 700; }
+.info { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: end; margin-top: 18px; border-top: 1.5px solid var(--paper-ink); padding-top: 14px; }
+.info dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; font-size: 13.5px; }
+.info dt { font-weight: 700; }
+.info dd { margin: 0; }
+.barcode svg { display: block; width: 190px; height: auto; background: #fff; }
+
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 22px 0 6px; }
+.tile { border-top: 2px solid var(--ink); padding-top: 8px; }
+.tile .v { font-size: 26px; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.tile .k { font-size: 13px; color: var(--ink-2); }
+
+details.more { margin-top: 22px; border-top: 2px solid var(--ink); }
+details.more summary { cursor: pointer; padding: 14px 0; font-weight: 700; font-size: 17px; list-style: none; display: flex; justify-content: space-between; }
+details.more summary::-webkit-details-marker { display: none; }
+details.more summary::after { content: "+"; font-size: 22px; line-height: 1; }
+details.more[open] summary::after { content: "–"; }
+details.more .body { padding-bottom: 10px; }
+.cols { columns: 3 220px; column-gap: 28px; }
+.el { display: flex; justify-content: space-between; gap: 10px; break-inside: avoid; font-size: 14px; padding: 3px 0; border-bottom: 1px solid var(--hair); font-variant-numeric: tabular-nums; }
+.el .sym { display: inline-block; width: 2.2em; font-weight: 700; }
+.el .n { color: var(--ink-2); }
+table.asm { border-collapse: collapse; font-size: 14px; width: 100%; max-width: 640px; font-variant-numeric: tabular-nums; }
+table.asm td { padding: 5px 0; border-bottom: 1px solid var(--hair); }
+table.asm td:last-child { text-align: right; padding-left: 16px; white-space: nowrap; }
+.prose { max-width: 46em; font-size: 14.5px; color: var(--ink); }
+.prose li { margin-bottom: 6px; }
+.prose a { color: inherit; }
+footer.f { margin-top: 36px; font-size: 12.5px; color: var(--ink-2); }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; gap: 26px; }
+  .pack { grid-template-columns: 1fr; }
+  .front { position: static; min-height: 0; }
+  .tiles { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .back { padding: 16px 12px; }
+  table.nt { font-size: 13.5px; }
+  table.nt th, table.nt td { padding: 5px 6px; }
+  table.nt td.sub { padding-left: 14px; }
+  .info { grid-template-columns: 1fr; }
+  .front h2 { font-size: 40px; }
+}
+@media print {
+  body { background: #fff; }
+  .warn { border-color: #000; }
+  .toolbar, header.top .lang, details.more summary::after { display: none; }
+  .panel, form.params { box-shadow: none; }
+  details.more > .body { display: block; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="e" aria-hidden="true">℮</span><span data-t="brand"></span></div>
+    <div class="lang" role="group" aria-label="Language / Sprache">
+      <button type="button" data-lang="de" aria-pressed="false">DE</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <p class="warn" role="note"><span class="warn-k" data-t="warnK"></span> <span data-t="warn"></span></p>
+
+  <!-- step 1: parameters -->
+  <section id="ask" class="hero">
+    <div>
+      <h1 data-t="h1"></h1>
+      <p class="lead" data-t="lead"></p>
+      <p class="note" data-t="privacy"></p>
+    </div>
+    <form class="params" id="form" novalidate>
+      <h2 data-t="formTitle"></h2>
+      <p class="sub" data-t="formSub"></p>
+      <div class="field">
+        <span class="lbl" data-t="sex"></span>
+        <div class="seg" role="radiogroup">
+          <input type="radio" name="sex" id="sex-f" value="f"><label for="sex-f" data-t="female"></label>
+          <input type="radio" name="sex" id="sex-m" value="m"><label for="sex-m" data-t="male"></label>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label for="age" data-t="age"></label>
+          <div class="unit"><input id="age" name="age" inputmode="numeric" autocomplete="off"><span data-t="years"></span></div>
+        </div>
+        <div class="field">
+          <label for="height" data-t="height"></label>
+          <div class="unit"><input id="height" name="height" inputmode="decimal" autocomplete="off"><span>cm</span></div>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label for="weight" data-t="weight"></label>
+          <div class="unit"><input id="weight" name="weight" inputmode="decimal" autocomplete="off"><span>kg</span></div>
+        </div>
+        <div class="field">
+          <label for="bf"><span data-t="bf"></span> <span class="hint" data-t="optional"></span></label>
+          <div class="unit"><input id="bf" name="bf" inputmode="decimal" autocomplete="off" data-tp="bfPh"><span>%</span></div>
+        </div>
+      </div>
+      <p class="err" id="err" role="alert"></p>
+      <button class="btn" type="submit" data-t="submit"></button>
+    </form>
+  </section>
+
+  <!-- step 2: the label -->
+  <section id="result" hidden>
+    <div class="toolbar">
+      <div class="who" id="who"></div>
+      <button type="button" class="ghost" id="edit" data-t="edit"></button>
+      <button type="button" class="ghost" id="share" data-t="share"></button>
+      <button type="button" class="ghost" id="print" data-t="print"></button>
+    </div>
+
+    <div class="pack">
+      <div class="panel front" id="front"></div>
+      <div class="panel back" id="back"></div>
+    </div>
+
+    <div class="tiles" id="tiles"></div>
+
+    <details class="more">
+      <summary data-t="elementsTitle"></summary>
+      <div class="body">
+        <p class="prose" data-t="elementsLead"></p>
+        <div class="cols" id="elements"></div>
+      </div>
+    </details>
+
+    <details class="more">
+      <summary data-t="modelTitle"></summary>
+      <div class="body"><table class="asm" id="assume"></table></div>
+    </details>
+
+    <details class="more">
+      <summary data-t="methodTitle"></summary>
+      <div class="body prose" id="method"></div>
+    </details>
+  </section>
+
+  <footer class="f" data-t="footer"></footer>
+</div>
+
+<script>
+"use strict";
+
+/* ===================================================================
+   Strings
+   =================================================================== */
+const T = {
+  de: {
+    brand: "Nährwert Mensch",
+    warnK: "Nur zum Spaß.",
+    warn: "Diese Seite ist ein Gedankenexperiment darüber, woraus ein Körper besteht, im Format eines Lebensmitteletiketts. Sie ermutigt in keiner Weise dazu, Menschen zu essen. Bitte nicht.",
+    h1: "Wie viel <em>Nährwert</em> steckt in einem Menschen?",
+    lead: "Gib ein paar Körperdaten ein und erhalte die vollständige Nährwertkennzeichnung, wie sie auf jeder Packung im deutschen Supermarkt steht: Brennwert, Fett, Kohlenhydrate, Eiweiß, Salz, Vitamine, Mineralstoffe und Spurenelemente, pro 100 g und pro Person.",
+    privacy: "Alles wird in deinem Browser berechnet. Nichts wird gespeichert oder an einen Server geschickt.",
+    formTitle: "Angaben zum Produkt",
+    formSub: "Erwachsene ab 18 Jahren. Die Werte sind Modellschätzungen, keine Messungen.",
+    sex: "Geschlecht (für die Schätzformeln)", female: "Weiblich", male: "Männlich",
+    age: "Alter", years: "Jahre", height: "Größe", weight: "Gewicht",
+    bf: "Körperfettanteil", optional: "(optional)", bfPh: "wird geschätzt",
+    submit: "Etikett erstellen",
+    errSex: "Bitte ein Geschlecht für die Schätzformeln wählen.",
+    errAge: "Alter: bitte 18 bis 110 Jahre.", errHeight: "Größe: bitte 120 bis 230 cm.",
+    errWeight: "Gewicht: bitte 30 bis 300 kg.", errBf: "Körperfettanteil: bitte 3 bis 70 % oder leer lassen.",
+    edit: "Angaben ändern", share: "Link kopieren", copied: "Kopiert ✓", print: "Drucken",
+    who: (p, d) => `${p.sex === "m" ? "Männlich" : "Weiblich"}, ${p.age} Jahre, ${d.n(p.height)} cm, ${d.n(p.weight)} kg${p.bf != null ? `, ${d.n(p.bf)} % Körperfett` : ""}`,
+    since: "Natur pur · seit ca. 300 000 Jahren",
+    kind: "Mensch, ganz, roh",
+    kindSub: (a) => a < 30 ? "junge Ware" : a < 60 ? "gut gereift" : "lange gereift",
+    nsTitle: "NUTRI-SCORE",
+    net: "Nettofüllmenge", drained: "Abtropfgewicht",
+    claimsNote: "Angaben gemäß Verordnung (EG) Nr. 1924/2006",
+    claims: { sugarFree: "Zuckerfrei", lowSugar: "Zuckerarm", highProtein: "Hoher Proteingehalt", sourceProtein: "Proteinquelle", ca: "Hoher Calciumgehalt", fe: "Hoher Eisengehalt", b12: "Hoher Vitamin-B12-Gehalt", p: "Hoher Phosphorgehalt" },
+    ntTitle: "Nährwertangaben", per100: "pro 100 g", perPerson: (w) => `pro Mensch<br>(${w})`, ri: "% RM*",
+    energy: "Brennwert", fat: "Fett", sat: "davon gesättigte Fettsäuren", mono: "davon einfach ungesättigte Fettsäuren", poly: "davon mehrfach ungesättigte Fettsäuren",
+    carb: "Kohlenhydrate", sugar: "davon Zucker", glycogen: "davon Glykogen", fibre: "Ballaststoffe", protein: "Eiweiß", salt: "Salz", chol: "Cholesterin",
+    riNote: "* Referenzmenge für einen durchschnittlichen Erwachsenen (8 400 kJ / 2 000 kcal).",
+    vmTitle: "Vitamine und Mineralstoffe", nrv: "% NRV**",
+    nrvNote: "** Nährstoffbezugswert nach Anhang XIII der Verordnung (EU) Nr. 1169/2011, bezogen auf die ganze Person.",
+    conf: { h: "gut belegt", m: "Schätzung", l: "grobe Schätzung" },
+    vit: { A: "Vitamin A", D: "Vitamin D", E: "Vitamin E", K: "Vitamin K", C: "Vitamin C", B1: "Thiamin (B1)", B2: "Riboflavin (B2)", B3: "Niacin", B6: "Vitamin B6", B9: "Folat", B12: "Vitamin B12", B7: "Biotin", B5: "Pantothensäure",
+           K_: "Kalium", Cl: "Chlorid", Ca: "Calcium", P: "Phosphor", Mg: "Magnesium", Fe: "Eisen", Zn: "Zink", Cu: "Kupfer", Mn: "Mangan", F: "Fluorid", Se: "Selen", Cr: "Chrom", Mo: "Molybdän", I: "Jod" },
+    ingrTitle: "Zutaten",
+    ingr: {
+      lead: "Zutaten:", water: "Wasser", fat: "Fett", fatSub: "Triglyceride, Phospholipide, Cholesterin",
+      protein: "Eiweiß", collagen: "Kollagen", myosin: "Myosin", actin: "Aktin", hb: "Hämoglobin", alb: "Albumin", other: "sonstige Proteine",
+      mineral: "Mineralstoffe", ha: "Hydroxylapatit", salts: "Kalium-, Natrium-, Chlorid- und Magnesiumsalze",
+      glycogen: "Glykogen", glucose: "Glucose", trace: "Spurenelemente"
+    },
+    traces: (list) => `Kann Spuren von ${list} enthalten.`,
+    notFood: "Nicht zum Verzehr bestimmt.",
+    storeK: "Lagerung", store: "Bei ca. 37 °C aufbewahren. Nicht einfrieren. Regelmäßig mit Wasser nachfüllen.",
+    bbK: "Mindestens haltbar bis", bb: (y) => `ca. ${y}***`,
+    lotK: "Los", origK: "Inverkehrbringer", orig: "Eltern",
+    bbNote: "*** Statistisch: fernere Lebenserwartung laut Sterbetafel des Statistischen Bundesamts (gerundet). Bei guter Pflege oft deutlich länger haltbar.",
+    tiles: { kcal: "Brennwert gesamt", days: "Tage Nahrung bei 2 000 kcal", blood: "Liter Blut", gold: "Gold, ungefähr" },
+    elementsTitle: "Zusammensetzung nach Elementen",
+    elementsLead: "Sauerstoff, Kohlenstoff, Wasserstoff und Stickstoff sind aus Wasser, Fett, Eiweiß und Kohlenhydraten berechnet; alle anderen Elemente sind nach Referenzwerten für einen 70‑kg‑Mann auf deine fettfreie Masse skaliert. Schwermetalle hängen in Wirklichkeit vor allem von der Umwelt ab.",
+    elSum: "Summe",
+    modelTitle: "Modellannahmen für diese Person",
+    asm: { bmi: "Body-Mass-Index", bf: "Körperfettanteil", bfEst: "geschätzt (Deurenberg)", bfGiven: "angegeben", fm: "Fettmasse", ffm: "Fettfreie Masse", water: "Körperwasser", sm: "Skelettmuskulatur", liver: "Leber", bv: "Blutvolumen (Nadler)", ecf: "Extrazelluläre Flüssigkeit", energyShare: "Energieanteil aus Eiweiß" },
+    methodTitle: "Methode und Quellen",
+    method: `<p>Das Modell zerlegt den Körper in Fettmasse und fettfreie Masse. Ohne Angabe wird der Körperfettanteil aus BMI, Alter und Geschlecht geschätzt (Deurenberg et al. 1991). Die fettfreie Masse besteht zu etwa 19,5 % aus Eiweiß, 6,8 % aus Mineralstoffen, rund 1 % aus Glykogen und Glucose und im Rest aus Wasser (molekulares Fünf‑Ebenen‑Modell, Wang et al. 1992).</p>
+<ul>
+<li><b>Brennwert:</b> Umrechnungsfaktoren der LMIV: Fett 37 kJ/g, Eiweiß und Kohlenhydrate je 17 kJ/g.</li>
+<li><b>Fettsäuren:</b> typisches Fettsäuremuster menschlichen Fettgewebes, rund 28 % gesättigt, 48 % einfach und 14 % mehrfach ungesättigt.</li>
+<li><b>Kohlenhydrate:</b> Muskelglykogen ca. 13 g/kg Muskel, Leberglykogen ca. 60 g/kg Leber (genährter Zustand), dazu freie Glucose in der extrazellulären Flüssigkeit (0,9 g/l).</li>
+<li><b>Salz:</b> Gesamtkörpernatrium × 2,5, wie es die LMIV für das Etikett vorschreibt.</li>
+<li><b>Mineralstoffe und Spurenelemente:</b> Referenzmann der ICRP (Publikation 23/89) und Emsley, <i>Nature's Building Blocks</i>; skaliert auf die fettfreie Masse. Eisen getrennt nach Geschlecht.</li>
+<li><b>Vitamine:</b> Körperbestände aus der ernährungsphysiologischen Literatur (z. B. Vitamin C ca. 1,5 g bei Sättigung, B12 2–5 mg, Folat 10–30 mg, B6 ca. 1 000 µmol). Fettlösliche Vitamine D und E sind überwiegend im Fettgewebe gespeichert und skalieren mit der Fettmasse. Bei Biotin, Pantothensäure, Niacin, Riboflavin und Vitamin K sind die Bestände schlecht untersucht; das zeigt der leere Kreis.</li>
+<li><b>Nutri-Score:</b> Algorithmus für feste Lebensmittel in der Fassung von 2017.</li>
+<li><b>Haltbarkeit:</b> fernere Lebenserwartung nach Alter und Geschlecht, Sterbetafel 2021/23 des Statistischen Bundesamts, gerundet und interpoliert.</li>
+</ul>
+<p>Das ist eine Populationsschätzung mit Unsicherheiten von leicht ±20 % und mehr. Für medizinische Fragen taugt sie nicht.</p>`,
+    footer: "Ein Gedankenexperiment in Etikettenform. Kein Lebensmittel, keine Aufforderung zum Verzehr, keine medizinische Auskunft.",
+  },
+  en: {
+    brand: "Human Nutrition Facts",
+    warnK: "Just for fun.",
+    warn: "This page is a thought experiment about what a body is made of, dressed up as a food label. It does not encourage eating humans in any way. Please don't.",
+    h1: "How much <em>nutritional value</em> is in a human?",
+    lead: "Enter a few body measurements and get the full nutrition declaration you would find on any product in a German supermarket: energy, fat, carbohydrate, protein, salt, vitamins, minerals and trace elements, per 100 g and per person.",
+    privacy: "Everything is calculated in your browser. Nothing is stored or sent to a server.",
+    formTitle: "Product details",
+    formSub: "Adults aged 18 and over. The figures are model estimates, not measurements.",
+    sex: "Sex (used by the estimation formulas)", female: "Female", male: "Male",
+    age: "Age", years: "years", height: "Height", weight: "Weight",
+    bf: "Body fat", optional: "(optional)", bfPh: "estimated",
+    submit: "Make my label",
+    errSex: "Please choose a sex for the estimation formulas.",
+    errAge: "Age: please 18 to 110 years.", errHeight: "Height: please 120 to 230 cm.",
+    errWeight: "Weight: please 30 to 300 kg.", errBf: "Body fat: please 3 to 70 %, or leave it empty.",
+    edit: "Change details", share: "Copy link", copied: "Copied ✓", print: "Print",
+    who: (p, d) => `${p.sex === "m" ? "Male" : "Female"}, ${p.age} years, ${d.n(p.height)} cm, ${d.n(p.weight)} kg${p.bf != null ? `, ${d.n(p.bf)} % body fat` : ""}`,
+    since: "All natural · since c. 300,000 years ago",
+    kind: "Human, whole, raw",
+    kindSub: (a) => a < 30 ? "young stock" : a < 60 ? "well matured" : "long matured",
+    nsTitle: "NUTRI-SCORE",
+    net: "Net quantity", drained: "Drained weight",
+    claimsNote: "Claims per Regulation (EC) No 1924/2006",
+    claims: { sugarFree: "Sugars-free", lowSugar: "Low sugars", highProtein: "High protein", sourceProtein: "Source of protein", ca: "High in calcium", fe: "High in iron", b12: "High in vitamin B12", p: "High in phosphorus" },
+    ntTitle: "Nutrition declaration", per100: "per 100 g", perPerson: (w) => `per human<br>(${w})`, ri: "% RI*",
+    energy: "Energy", fat: "Fat", sat: "of which saturates", mono: "of which mono-unsaturates", poly: "of which polyunsaturates",
+    carb: "Carbohydrate", sugar: "of which sugars", glycogen: "of which glycogen", fibre: "Fibre", protein: "Protein", salt: "Salt", chol: "Cholesterol",
+    riNote: "* Reference intake of an average adult (8,400 kJ / 2,000 kcal).",
+    vmTitle: "Vitamins and minerals", nrv: "% NRV**",
+    nrvNote: "** Nutrient reference value, Annex XIII of Regulation (EU) No 1169/2011, for the whole person.",
+    conf: { h: "well established", m: "estimate", l: "rough estimate" },
+    vit: { A: "Vitamin A", D: "Vitamin D", E: "Vitamin E", K: "Vitamin K", C: "Vitamin C", B1: "Thiamin (B1)", B2: "Riboflavin (B2)", B3: "Niacin", B6: "Vitamin B6", B9: "Folate", B12: "Vitamin B12", B7: "Biotin", B5: "Pantothenic acid",
+           K_: "Potassium", Cl: "Chloride", Ca: "Calcium", P: "Phosphorus", Mg: "Magnesium", Fe: "Iron", Zn: "Zinc", Cu: "Copper", Mn: "Manganese", F: "Fluoride", Se: "Selenium", Cr: "Chromium", Mo: "Molybdenum", I: "Iodine" },
+    ingrTitle: "Ingredients",
+    ingr: {
+      lead: "Ingredients:", water: "Water", fat: "Fat", fatSub: "triglycerides, phospholipids, cholesterol",
+      protein: "Protein", collagen: "collagen", myosin: "myosin", actin: "actin", hb: "haemoglobin", alb: "albumin", other: "other proteins",
+      mineral: "Minerals", ha: "hydroxyapatite", salts: "potassium, sodium, chloride and magnesium salts",
+      glycogen: "Glycogen", glucose: "Glucose", trace: "trace elements"
+    },
+    traces: (list) => `May contain traces of ${list}.`,
+    notFood: "Not intended for consumption.",
+    storeK: "Storage", store: "Keep at about 37 °C. Do not freeze. Top up with water regularly.",
+    bbK: "Best before", bb: (y) => `c. ${y}***`,
+    lotK: "Lot", origK: "Food business operator", orig: "Parents",
+    bbNote: "*** Statistically: remaining life expectancy from the German Federal Statistical Office life table (rounded). With good care, often keeps much longer.",
+    tiles: { kcal: "Total energy", days: "days of food at 2,000 kcal", blood: "litres of blood", gold: "gold, approximately" },
+    elementsTitle: "Composition by element",
+    elementsLead: "Oxygen, carbon, hydrogen and nitrogen are calculated from water, fat, protein and carbohydrate; every other element is scaled to your fat-free mass from reference values for a 70 kg man. In reality, heavy metals depend mostly on the environment.",
+    elSum: "Total",
+    modelTitle: "Model assumptions for this person",
+    asm: { bmi: "Body mass index", bf: "Body fat", bfEst: "estimated (Deurenberg)", bfGiven: "entered", fm: "Fat mass", ffm: "Fat-free mass", water: "Total body water", sm: "Skeletal muscle", liver: "Liver", bv: "Blood volume (Nadler)", ecf: "Extracellular fluid", energyShare: "Share of energy from protein" },
+    methodTitle: "Method and sources",
+    method: `<p>The model splits the body into fat mass and fat-free mass. If you leave body fat empty, it is estimated from BMI, age and sex (Deurenberg et al. 1991). Fat-free mass is taken as about 19.5 % protein, 6.8 % minerals, roughly 1 % glycogen and glucose, and water for the rest (the five-level molecular model, Wang et al. 1992).</p>
+<ul>
+<li><b>Energy:</b> EU conversion factors from Regulation 1169/2011: fat 37 kJ/g, protein and carbohydrate 17 kJ/g each.</li>
+<li><b>Fatty acids:</b> a typical fatty-acid profile of human adipose tissue, about 28 % saturated, 48 % mono-unsaturated and 14 % polyunsaturated.</li>
+<li><b>Carbohydrate:</b> muscle glycogen about 13 g per kg of muscle, liver glycogen about 60 g per kg of liver (fed state), plus free glucose in extracellular fluid (0.9 g/L).</li>
+<li><b>Salt:</b> total body sodium × 2.5, as EU labelling rules require.</li>
+<li><b>Minerals and trace elements:</b> the ICRP Reference Man (Publications 23 and 89) and Emsley, <i>Nature's Building Blocks</i>, scaled to fat-free mass. Iron is scaled separately by sex.</li>
+<li><b>Vitamins:</b> body stores from the nutrition literature (for example vitamin C about 1.5 g at saturation, B12 2–5 mg, folate 10–30 mg, B6 about 1,000 µmol). The fat-soluble vitamins D and E are mostly stored in adipose tissue and scale with fat mass. Stores of biotin, pantothenic acid, niacin, riboflavin and vitamin K are poorly studied, which the empty circle shows.</li>
+<li><b>Nutri-Score:</b> the 2017 algorithm for solid foods.</li>
+<li><b>Best before:</b> remaining life expectancy by age and sex, German life table 2021/23 (Destatis), rounded and interpolated.</li>
+</ul>
+<p>This is a population-level estimate, and ±20 % or more is easily within its error. It is no use for medical questions.</p>`,
+    footer: "A thought experiment in the shape of a food label. Not food, not an invitation to eat anyone, not medical advice.",
+  }
+};
+
+/* Elements: symbol, English, German, grams in the 70 kg reference man (ICRP / Emsley). */
+const ELEMENTS = [
+  ["Ca","Calcium","Calcium",1000],["P","Phosphorus","Phosphor",780],["K","Potassium","Kalium",140],["S","Sulfur","Schwefel",140],
+  ["Na","Sodium","Natrium",100],["Cl","Chlorine","Chlor",95],["Mg","Magnesium","Magnesium",19],["F","Fluorine","Fluor",2.6],
+  ["Zn","Zinc","Zink",2.3],["Si","Silicon","Silicium",1.0],["Rb","Rubidium","Rubidium",0.32],["Sr","Strontium","Strontium",0.32],
+  ["Br","Bromine","Brom",0.2],["Pb","Lead","Blei",0.12],["Cu","Copper","Kupfer",0.072],["Al","Aluminium","Aluminium",0.061],
+  ["Cd","Cadmium","Cadmium",0.05],["Ce","Cerium","Cer",0.04],["Ba","Barium","Barium",0.022],["Sn","Tin","Zinn",0.02],
+  ["Ti","Titanium","Titan",0.02],["B","Boron","Bor",0.018],["I","Iodine","Iod",0.015],["Ni","Nickel","Nickel",0.015],
+  ["Se","Selenium","Selen",0.013],["Mn","Manganese","Mangan",0.012],["As","Arsenic","Arsen",0.007],["Li","Lithium","Lithium",0.007],
+  ["Cr","Chromium","Chrom",0.006],["Hg","Mercury","Quecksilber",0.006],["Ge","Germanium","Germanium",0.005],["Mo","Molybdenum","Molybdän",0.005],
+  ["Co","Cobalt","Cobalt",0.003],["Sb","Antimony","Antimon",0.002],["Ag","Silver","Silber",0.002],["Cs","Caesium","Caesium",0.0015],
+  ["Nb","Niobium","Niob",0.0015],["Zr","Zirconium","Zirconium",0.001],["La","Lanthanum","Lanthan",0.0008],["Ga","Gallium","Gallium",0.0007],
+  ["Te","Tellurium","Tellur",0.0007],["Y","Yttrium","Yttrium",0.0006],["Bi","Bismuth","Bismut",0.0005],["Tl","Thallium","Thallium",0.0005],
+  ["In","Indium","Indium",0.0004],["Au","Gold","Gold",0.0002],["Sc","Scandium","Scandium",0.0002],["Ta","Tantalum","Tantal",0.0002],
+  ["V","Vanadium","Vanadium",0.00011],["Th","Thorium","Thorium",0.0001],["U","Uranium","Uran",0.0001],["Sm","Samarium","Samarium",0.00005],
+  ["Be","Beryllium","Beryllium",0.000036],["W","Tungsten","Wolfram",0.00002],
+];
+const REF_FFM = 56; // kg, fat-free mass of the 70 kg reference man
+
+/* EU reference intakes (Annex XIII 1169/2011), in grams. */
+const RI = { kJ: 8400, fat: 70, sat: 20, carb: 260, sugar: 90, protein: 50, salt: 6 };
+const NRV = {
+  A: 800e-6, D: 5e-6, E: 12e-3, K: 75e-6, C: 80e-3, B1: 1.1e-3, B2: 1.4e-3, B3: 16e-3, B6: 1.4e-3, B9: 200e-6, B12: 2.5e-6, B7: 50e-6, B5: 6e-3,
+  K_: 2000e-3, Cl: 800e-3, Ca: 800e-3, P: 700e-3, Mg: 375e-3, Fe: 14e-3, Zn: 10e-3, Cu: 1e-3, Mn: 2e-3, F: 3.5e-3, Se: 55e-6, Cr: 40e-6, Mo: 50e-6, I: 150e-6
+};
+
+/* Remaining life expectancy e(x), Destatis 2021/23, rounded. */
+const LIFE = {
+  x: [18, 20, 30, 40, 50, 60, 65, 70, 80, 90, 100, 110],
+  m: [60.6, 58.7, 49.0, 39.5, 30.3, 21.9, 18.0, 14.4, 7.9, 3.8, 2.0, 1.0],
+  f: [65.3, 63.4, 53.5, 43.8, 34.3, 25.4, 21.1, 17.1, 9.3, 4.3, 2.2, 1.1],
+};
+
+/* ===================================================================
+   Model
+   =================================================================== */
+function model(p) {
+  const male = p.sex === "m";
+  const W = p.weight, H = p.height / 100;
+  const bmi = W / (H * H);
+  const bfEst = (1.2 * bmi + 0.23 * p.age - 10.8 * (male ? 1 : 0) - 5.4) / 100;
+  const bf = p.bf != null ? p.bf / 100 : Math.min(0.6, Math.max(0.04, bfEst));
+  const FM = W * bf, FFM = W - FM;          // kg
+  const k = FFM / REF_FFM;                    // scale factor for tissue-bound nutrients
+
+  // grams
+  const fat = FM * 1000;
+  const protein = FFM * 1000 * 0.195;
+  const mineral = FFM * 1000 * 0.068;
+  const SM = FFM * (male ? 0.52 : 0.47);      // kg skeletal muscle
+  const liver = FFM * 0.028;                  // kg
+  const ECF = FFM * 0.25;                     // L
+  const glycogen = SM * 13 + liver * 60;
+  const glucose = ECF * 0.9;
+  const carb = glycogen + glucose;
+  const water = W * 1000 - fat - protein - mineral - carb;
+  const chol = FFM * 0.45 + FM * 0.8;
+  const sat = fat * 0.28, mono = fat * 0.48, poly = fat * 0.14;
+
+  // blood (Nadler 1962)
+  const BV = male ? 0.3669 * H ** 3 + 0.03219 * W + 0.6041 : 0.3561 * H ** 3 + 0.03308 * W + 0.1833; // L
+  const hb = BV * (male ? 150 : 135);
+  const plasma = BV * (male ? 0.55 : 0.6);
+  const alb = plasma * 42 / 0.4;
+  const muscleProt = SM * 1000 * 0.2;
+  const myosin = muscleProt * 0.6 * 0.5, actin = muscleProt * 0.6 * 0.2;
+  const collagen = protein * 0.3;
+  const otherProt = Math.max(0, protein - collagen - myosin - actin - hb - alb);
+
+  // elements (grams)
+  const el = {};
+  for (const [s, , , g] of ELEMENTS) el[s] = g * k;
+  el.Fe = FFM * (male ? 0.062 : 0.052);
+  const ha = el.Ca / 0.399;                   // hydroxyapatite
+  el.O = water * 0.8881 + fat * 0.111 + protein * 0.225 + carb * 0.494 + el.P * 2.065;
+  el.C = fat * 0.769 + protein * 0.53 + carb * 0.444;
+  el.H = water * 0.1119 + fat * 0.12 + protein * 0.07 + carb * 0.062;
+  el.N = protein * 0.16;
+
+  const sodium = el.Na;
+  const salt = sodium * 2.5;
+  const kJ = fat * 37 + protein * 17 + carb * 17;
+  const kcal = fat * 9 + protein * 4 + carb * 4;
+
+  // vitamins (grams), with confidence
+  const vit = {
+    A:  [0.30 * k, "m"],
+    D:  [(FM * 6 + 30) * 1e-6, "l"],
+    E:  [FM * 0.15 + 0.5 * k, "m"],
+    K:  [100e-6 * k, "l"],
+    C:  [1.5 * k, "h"],
+    B1: [30e-3 * k, "m"],
+    B2: [100e-3 * k, "l"],
+    B3: [1.5 * k, "l"],
+    B6: [170e-3 * k, "m"],
+    B9: [15e-3 * k, "m"],
+    B12:[3e-3 * k, "h"],
+    B7: [2e-3 * k, "l"],
+    B5: [100e-3 * k, "l"],
+  };
+  const min = {
+    K_: [el.K, "h"], Cl: [el.Cl, "h"], Ca: [el.Ca, "h"], P: [el.P, "h"], Mg: [el.Mg, "h"], Fe: [el.Fe, "h"],
+    Zn: [el.Zn, "h"], Cu: [el.Cu, "m"], Mn: [el.Mn, "m"], F: [el.F, "m"], Se: [el.Se, "m"], Cr: [el.Cr, "l"], Mo: [el.Mo, "l"], I: [el.I, "m"],
+  };
+
+  // Nutri-Score 2017, solid foods, per 100 g
+  const per = (g) => g / W / 10; // grams per 100 g of person
+  const pts = (v, steps) => steps.filter((s) => v > s).length;
+  const N = pts(kJ / W / 10, [335, 670, 1005, 1340, 1675, 2010, 2345, 2680, 3015, 3350])
+          + pts(per(sat), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+          + pts(per(glucose), [4.5, 9, 13.5, 18, 22.5, 27, 31, 36, 40, 45])
+          + pts(per(sodium) * 1000, [90, 180, 270, 360, 450, 540, 630, 720, 810, 900]);
+  const Pprot = pts(per(protein), [1.6, 3.2, 4.8, 6.4, 8.0]);
+  const score = N - (N < 11 ? Pprot : 0);
+  const grade = score <= -1 ? "A" : score <= 2 ? "B" : score <= 10 ? "C" : score <= 18 ? "D" : "E";
+
+  // Best before
+  const sx = male ? LIFE.m : LIFE.f;
+  let e = sx[sx.length - 1];
+  for (let i = 0; i < LIFE.x.length - 1; i++) {
+    if (p.age >= LIFE.x[i] && p.age <= LIFE.x[i + 1]) {
+      const t = (p.age - LIFE.x[i]) / (LIFE.x[i + 1] - LIFE.x[i]);
+      e = sx[i] + t * (sx[i + 1] - sx[i]); break;
+    }
+  }
+  const year = new Date().getFullYear();
+  const bestBefore = Math.round(year + e);
+  const lot = year - p.age;
+
+  return { p, male, W, bmi, bf, bfEstimated: p.bf == null, FM, FFM, SM, liver, ECF, BV,
+           fat, sat, mono, poly, protein, mineral, carb, glycogen, glucose, water, chol, salt, sodium, kJ, kcal,
+           hb, alb, myosin, actin, collagen, otherProt, ha, el, vit, min, score, grade, bestBefore, lot };
+}
+
+/* ===================================================================
+   Formatting
+   =================================================================== */
+let lang = "en";
+function fmt() {
+  const loc = lang === "de" ? "de-DE" : "en-GB";
+  const sigF = new Intl.NumberFormat(loc, { maximumSignificantDigits: 3 });
+  const sig2F = new Intl.NumberFormat(loc, { maximumSignificantDigits: 2 });
+  const intF = new Intl.NumberFormat(loc, { maximumFractionDigits: 0 });
+  const d1F = new Intl.NumberFormat(loc, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const nF = new Intl.NumberFormat(loc, { maximumFractionDigits: 1 });
+  const sp = "\u00A0";
+  const sig = (v) => Math.abs(v) >= 1000 ? intF.format(Math.round(v / 10 ** (Math.floor(Math.log10(v)) - 2)) * 10 ** (Math.floor(Math.log10(v)) - 2)) : sigF.format(v);
+  const mass = (g) => {
+    const a = Math.abs(g);
+    if (a === 0) return "0" + sp + "g";
+    if (a >= 1000) return sig(g / 1000) + sp + "kg";
+    if (a >= 1) return sig(g) + sp + "g";
+    if (a >= 1e-3) return sig(g * 1e3) + sp + "mg";
+    return sig(g * 1e6) + sp + "µg";
+  };
+  const g1 = (g) => g >= 0.1 ? d1F.format(g) + sp + "g" : g === 0 ? "0" + sp + "g" : sig2F.format(g) + sp + "g";
+  const pct = (v) => (v >= 10 ? intF.format(v) : nF.format(v)) + sp + "%";
+  return { mass, g1, pct, n: (v) => nF.format(v), int: (v) => intF.format(v), sig };
+}
+
+/* ===================================================================
+   Rendering
+   =================================================================== */
+const $ = (s) => document.querySelector(s);
+let current = null;
+
+function applyStatic() {
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.title = t.brand;
+  document.querySelectorAll("[data-t]").forEach((n) => { const v = t[n.dataset.t]; if (typeof v === "string") n.innerHTML = v; });
+  document.querySelectorAll("[data-tp]").forEach((n) => { n.placeholder = t[n.dataset.tp]; });
+  document.querySelectorAll(".lang button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+}
+
+function ean13(digits12) {
+  const L = ["0001101","0011001","0010011","0111101","0100011","0110001","0101111","0111011","0110111","0001011"];
+  const R = L.map((c) => c.replace(/./g, (b) => b === "0" ? "1" : "0"));
+  const G = R.map((c) => c.split("").reverse().join(""));
+  const PAR = ["LLLLLL","LLGLGG","LLGGLG","LLGGGL","LGLLGG","LGGLLG","LGGGLL","LGLGLG","LGLGGL","LGGLGL"];
+  const d = digits12.split("").map(Number);
+  const sum = d.reduce((s, v, i) => s + v * (i % 2 ? 3 : 1), 0);
+  d.push((10 - (sum % 10)) % 10);
+  let bits = "101";
+  for (let i = 1; i <= 6; i++) bits += (PAR[d[0]][i - 1] === "L" ? L : G)[d[i]];
+  bits += "01010";
+  for (let i = 7; i <= 12; i++) bits += R[d[i]];
+  bits += "101";
+  const guard = new Set([0,1,2,45,46,47,48,49,92,93,94]);
+  const x0 = 11, mw = 1;
+  let bars = "";
+  for (let i = 0; i < bits.length; i++) if (bits[i] === "1") bars += `<rect x="${x0 + i * mw}" y="4" width="${mw}" height="${guard.has(i) ? 58 : 52}"/>`;
+  const txt = (s, x) => `<text x="${x}" y="70" font-size="9" font-family="Arial,Helvetica,sans-serif" text-anchor="middle">${s}</text>`;
+  const str = d.join("");
+  return `<svg viewBox="0 0 117 74" role="img" aria-label="EAN ${str}"><rect width="117" height="74" fill="#fff"/><g fill="#000">${bars}</g>${txt(str[0], 5)}${txt(str.slice(1,7), 11 + 3 + 21)}${txt(str.slice(7), 11 + 50 + 21)}</svg>`;
+}
+
+function render(m) {
+  const t = T[lang], f = fmt();
+  const W = m.W;
+  const per100 = (g) => g / W / 10;
+
+  $("#who").textContent = t.who(m.p, f);
+
+  // --- claims (EC 1924/2006)
+  const claims = [];
+  const sugar100 = per100(m.glucose);
+  if (sugar100 <= 0.5) claims.push(t.claims.sugarFree); else if (sugar100 <= 5) claims.push(t.claims.lowSugar);
+  const protShare = (m.protein * 17) / m.kJ;
+  if (protShare >= 0.2) claims.push(t.claims.highProtein); else if (protShare >= 0.12) claims.push(t.claims.sourceProtein);
+  if (per100(m.el.Ca) >= NRV.Ca * 0.3) claims.push(t.claims.ca);
+  if (per100(m.vit.B12[0]) >= NRV.B12 * 0.3) claims.push(t.claims.b12);
+  if (per100(m.el.Fe) >= NRV.Fe * 0.3) claims.push(t.claims.fe);
+
+  const ns = ["A","B","C","D","E"].map((g) => `<span class="l${g === m.grade ? " on" : ""}" style="background:var(--ns-${g.toLowerCase()})">${g}</span>`).join("");
+
+  $("#front").innerHTML = `
+    <div>
+      <div class="since">${t.since}</div>
+      <h2>Homo sapiens</h2>
+      <div class="kind">${t.kind} · <span style="color:var(--paper-ink-2)">${t.kindSub(m.p.age)}</span></div>
+    </div>
+    <div class="claims" title="${t.claimsNote}">${claims.map((c) => `<span class="claim">${c}</span>`).join("")}</div>
+    <div><div class="ns" role="img" aria-label="Nutri-Score ${m.grade}"><span class="t">${t.nsTitle}</span><div class="row">${ns}</div></div></div>
+    <div class="net">
+      <div><div class="small">${t.net}</div><div class="big">${f.n(W)}&nbsp;kg ℮</div></div>
+      <div style="text-align:right"><div class="small">${t.drained}</div><div style="font-weight:700;font-size:18px">${f.mass(W * 1000 - m.water)}</div></div>
+    </div>`;
+
+  // --- nutrition table
+  const row = (label, g, ri, cls = "") => `<tr class="${cls}"><td class="${cls.includes("sub") ? "sub" : ""}">${label}</td><td>${f.g1(per100(g))}</td><td>${f.mass(g)}</td><td class="pc">${ri ? f.pct(g / ri * 100) : ""}</td></tr>`;
+  const kJ100 = m.kJ / W / 10, kcal100 = m.kcal / W / 10;
+  const nt = `
+    <table class="nt">
+      <thead><tr><th>${t.ntTitle}</th><th>${t.per100}</th><th>${t.perPerson(f.n(W) + "&nbsp;kg")}</th><th class="pc">${t.ri}</th></tr></thead>
+      <tbody>
+        <tr class="thick"><td>${t.energy}</td><td>${f.int(kJ100)}&nbsp;kJ /<br>${f.int(kcal100)}&nbsp;kcal</td><td>${f.int(m.kJ)}&nbsp;kJ /<br>${f.int(m.kcal)}&nbsp;kcal</td><td class="pc">${f.pct(m.kJ / RI.kJ * 100)}</td></tr>
+        ${row(t.fat, m.fat, RI.fat)}
+        ${row(t.sat, m.sat, RI.sat, "sub")}
+        ${row(t.mono, m.mono, 0, "sub")}
+        ${row(t.poly, m.poly, 0, "sub thick")}
+        ${row(t.carb, m.carb, RI.carb)}
+        ${row(t.sugar, m.glucose, RI.sugar, "sub")}
+        ${row(t.glycogen, m.glycogen, 0, "sub thick")}
+        ${row(t.fibre, 0, 0, "thick")}
+        ${row(t.protein, m.protein, RI.protein, "thick")}
+        ${row(t.salt, m.salt, RI.salt, "thick")}
+        ${row(t.chol, m.chol, 0)}
+      </tbody>
+    </table>
+    <p class="foot">${t.riNote}</p>`;
+
+  const vrow = (key, [g, c]) => `<tr><td>${t.vit[key]}<span class="conf ${c}" title="${t.conf[c]}"></span></td><td>${f.mass(per100(g))}</td><td>${f.mass(g)}</td><td class="pc">${f.pct(g / NRV[key] * 100)}</td></tr>`;
+  const vm = `
+    <table class="nt">
+      <thead><tr><th>${t.vmTitle}</th><th>${t.per100}</th><th>${t.perPerson(f.n(W) + "&nbsp;kg")}</th><th class="pc">${t.nrv}</th></tr></thead>
+      <tbody>
+        ${Object.entries(m.vit).map(([k, v]) => vrow(k, v)).join("")}
+        ${Object.entries(m.min).map(([k, v]) => vrow(k, v)).join("")}
+      </tbody>
+    </table>
+    <div class="legend"><span><span class="conf h"></span>${t.conf.h}</span><span><span class="conf m"></span>${t.conf.m}</span><span><span class="conf l"></span>${t.conf.l}</span></div>
+    <p class="foot">${t.nrvNote}</p>`;
+
+  // --- ingredients, by descending weight with QUID
+  const I = t.ingr;
+  const q = (g) => { const v = g / (W * 1000) * 100; return v >= 1 ? ` (${f.int(v)}&nbsp;%)` : ""; };
+  const protParts = [[I.collagen, m.collagen], [I.myosin, m.myosin], [I.actin, m.actin], [I.hb, m.hb], [I.alb, m.alb], [I.other, m.otherProt]]
+    .sort((a, b) => b[1] - a[1]).map((x) => x[0]).join(", ");
+  const parts = [
+    [m.water, `${I.water}${q(m.water)}`],
+    [m.fat, `${I.fat}${q(m.fat)} [${I.fatSub}]`],
+    [m.protein, `${I.protein}${q(m.protein)} [${protParts}]`],
+    [m.mineral, `${I.mineral}${q(m.mineral)} [${I.ha}, ${I.salts}, ${I.trace}]`],
+    [m.glycogen, I.glycogen],
+    [m.glucose, I.glucose],
+  ].sort((a, b) => b[0] - a[0]).map((x) => x[1]);
+  const traceSyms = ["Pb", "Hg", "As", "Cd", "U", "Au"];
+  const traceList = traceSyms.map((s) => { const e = ELEMENTS.find((x) => x[0] === s); return `<b>${lang === "de" ? e[2] : e[1].toLowerCase()}</b> (${f.mass(m.el[s])})`; });
+  const joinList = (arr) => arr.slice(0, -1).join(", ") + (lang === "de" ? " und " : " and ") + arr[arr.length - 1];
+
+  const code = "29" + "37000" + String(Math.round(W * 100)).padStart(5, "0").slice(-5);
+
+  $("#back").innerHTML = `
+    <h3>${t.ntTitle}</h3>${nt}
+    <h3>${t.vmTitle}</h3>${vm}
+    <h3>${t.ingrTitle}</h3>
+    <p class="ingr"><b>${I.lead}</b> ${parts.join(", ")}. ${t.traces(joinList(traceList))} ${t.notFood}</p>
+    <div class="info">
+      <dl>
+        <dt>${t.storeK}</dt><dd>${t.store}</dd>
+        <dt>${t.bbK}</dt><dd>${t.bb(m.bestBefore)}</dd>
+        <dt>${t.lotK}</dt><dd>L${m.lot}</dd>
+        <dt>${t.origK}</dt><dd>${t.orig}</dd>
+      </dl>
+      <div class="barcode">${ean13(code)}</div>
+    </div>
+    <p class="foot">${t.bbNote}</p>
+    <p class="foot">${t.claimsNote}.</p>`;
+
+  // --- tiles
+  const gold = m.el.Au;
+  $("#tiles").innerHTML = [
+    [f.int(m.kcal) + "&nbsp;kcal", t.tiles.kcal],
+    [f.int(m.kcal / 2000), t.tiles.days],
+    [f.n(m.BV), t.tiles.blood],
+    [f.mass(gold), t.tiles.gold],
+  ].map(([v, k]) => `<div class="tile"><div class="v">${v}</div><div class="k">${k}</div></div>`).join("");
+
+  // --- elements
+  const els = [["O","Oxygen","Sauerstoff"],["C","Carbon","Kohlenstoff"],["H","Hydrogen","Wasserstoff"],["N","Nitrogen","Stickstoff"],["Fe","Iron","Eisen"], ...ELEMENTS.map((e) => [e[0], e[1], e[2]])];
+  const seen = new Set();
+  const list = els.filter((e) => !seen.has(e[0]) && seen.add(e[0])).map((e) => [e, m.el[e[0]]]).sort((a, b) => b[1] - a[1]);
+  const total = list.reduce((s, x) => s + x[1], 0);
+  $("#elements").innerHTML = list.map(([e, g]) => `<div class="el"><span><span class="sym">${e[0]}</span><span class="n">${lang === "de" ? e[2] : e[1]}</span></span><span>${f.mass(g)}</span></div>`).join("")
+    + `<div class="el" style="border-bottom:2px solid var(--ink)"><span><b>${t.elSum}</b></span><b>${f.mass(total)}</b></div>`;
+
+  // --- assumptions
+  const A = t.asm;
+  $("#assume").innerHTML = [
+    [A.bmi, f.n(m.bmi) + "&nbsp;kg/m²"],
+    [A.bf, f.pct(m.bf * 100) + " · " + (m.bfEstimated ? A.bfEst : A.bfGiven)],
+    [A.fm, f.mass(m.FM * 1000)],
+    [A.ffm, f.mass(m.FFM * 1000)],
+    [A.water, f.mass(m.water) + " (" + f.pct(m.water / (W * 1000) * 100) + ")"],
+    [A.sm, f.mass(m.SM * 1000)],
+    [A.liver, f.mass(m.liver * 1000)],
+    [A.bv, f.n(m.BV) + "&nbsp;l"],
+    [A.ecf, f.n(m.ECF) + "&nbsp;l"],
+    [A.energyShare, f.pct(protShare * 100)],
+  ].map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join("");
+
+  $("#method").innerHTML = t.method;
+}
+
+/* ===================================================================
+   State: form, URL hash, language
+   =================================================================== */
+function readHash() {
+  const h = new URLSearchParams(location.hash.slice(1));
+  if (!h.has("w")) return null;
+  const num = (k) => h.has(k) && h.get(k) !== "" ? Number(h.get(k)) : null;
+  return { sex: h.get("s"), age: num("a"), height: num("h"), weight: num("w"), bf: num("bf") };
+}
+function validate(p) {
+  const t = T[lang];
+  if (p.sex !== "m" && p.sex !== "f") return t.errSex;
+  if (!(p.age >= 18 && p.age <= 110)) return t.errAge;
+  if (!(p.height >= 120 && p.height <= 230)) return t.errHeight;
+  if (!(p.weight >= 30 && p.weight <= 300)) return t.errWeight;
+  if (p.bf != null && !(p.bf >= 3 && p.bf <= 70)) return t.errBf;
+  return null;
+}
+function fillForm(p) {
+  if (!p) return;
+  const r = document.querySelector(`input[name=sex][value="${p.sex}"]`); if (r) r.checked = true;
+  $("#age").value = p.age ?? ""; $("#height").value = p.height ?? ""; $("#weight").value = p.weight ?? ""; $("#bf").value = p.bf ?? "";
+}
+const parseNum = (s) => { s = String(s).trim().replace(",", "."); return s === "" ? null : Number(s); };
+
+function show(p) {
+  current = model(p);
+  render(current);
+  $("#ask").hidden = true; $("#result").hidden = false;
+  window.scrollTo({ top: 0 });
+}
+function route() {
+  const p = readHash();
+  if (p && !validate(p)) { fillForm(p); show(p); }
+  else { $("#result").hidden = true; $("#ask").hidden = false; fillForm(p); }
+}
+
+$("#form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const sex = (document.querySelector("input[name=sex]:checked") || {}).value;
+  const p = { sex, age: parseNum($("#age").value), height: parseNum($("#height").value), weight: parseNum($("#weight").value), bf: parseNum($("#bf").value) };
+  if (p.age != null) p.age = Math.round(p.age);
+  const err = validate(p);
+  $("#err").textContent = err || "";
+  if (err) return;
+  const h = new URLSearchParams({ s: p.sex, a: p.age, h: p.height, w: p.weight });
+  if (p.bf != null) h.set("bf", p.bf);
+  location.hash = h.toString();   // triggers route()
+});
+$("#edit").addEventListener("click", () => { $("#result").hidden = true; $("#ask").hidden = false; $("#age").focus(); });
+$("#print").addEventListener("click", () => { document.querySelectorAll("details.more").forEach((d) => d.open = true); window.print(); });
+$("#share").addEventListener("click", async () => {
+  const u = new URL(location.href); u.searchParams.set("lang", lang);
+  try { await navigator.clipboard.writeText(u.toString()); $("#share").textContent = T[lang].copied; setTimeout(() => $("#share").textContent = T[lang].share, 1600); } catch (_) { prompt("URL", u.toString()); }
+});
+document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", () => {
+  lang = b.dataset.lang;
+  try { localStorage.setItem("lang", lang); } catch (_) {}
+  applyStatic();
+  if (!$("#result").hidden && current) render(current);
+  $("#err").textContent = "";
+}));
+window.addEventListener("hashchange", route);
+
+(function init() {
+  const q = new URLSearchParams(location.search).get("lang");
+  let saved = null; try { saved = localStorage.getItem("lang"); } catch (_) {}
+  lang = q === "en" || q === "de" ? q : saved === "de" ? "de" : "en";
+  applyStatic();
+  route();
+})();
+</script>
+</body>
+</html>

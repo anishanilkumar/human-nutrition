@@ -6,7 +6,7 @@ What is the nutritional value of a human? Enter sex, age, height and weight (bod
 
 > **Just for fun.** This is a thought experiment about what a body is made of, dressed up as a food label. It does not encourage eating humans in any way. Please don't.
 
-The idea comes from an [xkcd](https://xkcd.com/) video. Made by [anishanilkumar.com](https://anishanilkumar.com).
+The idea comes from an [xkcd video](https://www.youtube.com/watch?v=alBQCm0QpJg). Made by [anishanilkumar.com](https://anishanilkumar.com).
 
 ## How it works
 

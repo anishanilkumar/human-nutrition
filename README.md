@@ -6,6 +6,8 @@ What is the nutritional value of a human? Enter sex, age, height and weight (bod
 
 > **Just for fun.** This is a thought experiment about what a body is made of, dressed up as a food label. It does not encourage eating humans in any way. Please don't.
 
+The idea comes from an [xkcd](https://xkcd.com/) video. Made by [anishanilkumar.com](https://anishanilkumar.com).
+
 ## How it works
 
 Everything is one page, `index.html`, plus two self-hosted fonts in `fonts/`: no build step and no dependencies. The page is designed as a printer's proof of a flattened box, with a cellophane window on the front showing the body's contents layered by density (minerals sink, fat floats). All calculation happens in the browser; the parameters live in the URL fragment (`#s=m&a=35&h=180&w=75`), which is never sent to the server. `?lang=de` or `?lang=en` picks the language; English is the default.

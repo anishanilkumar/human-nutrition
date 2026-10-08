@@ -5,272 +5,343 @@
 <meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Human Nutrition Facts</title>
-<meta name="description" content="What is the nutritional value of a human? A German/EU-style nutrition label for your body — energy, macronutrients, vitamins, minerals and trace elements.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%23111'/><text x='32' y='44' font-family='Arial' font-weight='700' font-size='30' text-anchor='middle' fill='%23fff'>℮</text></svg>">
+<meta name="description" content="What is the nutritional value of a human? A German/EU-style food label for your body, printed as a packaging proof. Just for fun: it does not encourage eating anyone.">
+<link rel="preload" href="fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/shrikhand.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='10' fill='%23FFE14D'/><circle cx='32' cy='15' r='8' fill='%23000'/><rect x='20' y='25' width='24' height='13' fill='%23E6007E'/><rect x='20' y='38' width='24' height='10' fill='%23009FE3'/><rect x='22' y='48' width='8' height='10' fill='%23000'/><rect x='34' y='48' width='8' height='10' fill='%23000'/></svg>">
 <style>
+@font-face { font-family: "Archivo"; src: url(fonts/archivo.woff2) format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
+@font-face { font-family: "Shrikhand"; src: url(fonts/shrikhand.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+
 :root {
-  --bg: #efeae1;
-  --bg-2: #e6dfd2;
-  --ink: #16140f;
-  --ink-2: #5d574c;
-  --line: #16140f;
-  --hair: #cfc6b6;
-  --paper: #fffdf8;
-  --paper-ink: #16140f;
-  --paper-ink-2: #5d574c;
-  --paper-hair: #d9d2c4;
-  --accent: #b23a1d;
-  --field: #fffdf8;
-  --focus: #1d5fb2;
+  /* process inks on board */
+  --pack: #FFE14D;       /* the printed box */
+  --cyan: #009FE3;
+  --magenta: #E6007E;
+  --yellow: #FFED00;
+  --black: #000;
+  --white: #fff;
+  --board: #B9B4AA;      /* unprinted greyboard of the press sheet */
+  --board-ink: #000;
+  --board-ink-2: #3f3b35;
+  --focus: #009FE3;
   --ns-a: #038141; --ns-b: #85bb2f; --ns-c: #fecb02; --ns-d: #ee8100; --ns-e: #e63e11;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #161512; --bg-2: #1f1d19; --ink: #ece6da; --ink-2: #a39b8c;
-    --line: #ece6da; --hair: #3a362f; --field: #1f1d19; --accent: #e0714f; --focus: #7fb0ff;
-    color-scheme: dark;
-  }
+  :root:not([data-theme="light"]) { --board: #34322e; --board-ink: #f1ede4; --board-ink-2: #b8b2a6; color-scheme: dark; }
 }
-:root[data-theme="dark"] {
-  --bg: #161512; --bg-2: #1f1d19; --ink: #ece6da; --ink-2: #a39b8c;
-  --line: #ece6da; --hair: #3a362f; --field: #1f1d19; --accent: #e0714f; --focus: #7fb0ff;
-  color-scheme: dark;
-}
+:root[data-theme="dark"] { --board: #34322e; --board-ink: #f1ede4; --board-ink-2: #b8b2a6; color-scheme: dark; }
+
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0; background: var(--bg); color: var(--ink);
-  font: 16px/1.5 "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  margin: 0; color: var(--board-ink);
+  background-color: var(--board);
+  /* board fibre */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px; line-height: 1.45; font-stretch: 100%;
 }
-.wrap { max-width: 1120px; margin: 0 auto; padding: 20px 16px 64px; }
-header.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 28px; }
-.brand { font-weight: 700; letter-spacing: .02em; font-size: 15px; display: flex; align-items: center; gap: 10px; }
-.brand .e { display: inline-grid; place-items: center; width: 28px; height: 28px; border: 2px solid var(--ink); border-radius: 6px; font-size: 17px; }
-.lang { display: inline-flex; border: 1.5px solid var(--ink); border-radius: 999px; overflow: hidden; }
-.lang button { appearance: none; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 13px; font-weight: 700; padding: 5px 12px; cursor: pointer; }
-.lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
-button:focus-visible, input:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-
-.warn { margin: 0 0 26px; padding: 10px 14px; border: 1.5px solid var(--accent); border-radius: 4px; font-size: 14px; line-height: 1.45; }
-.warn-k { font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; font-size: 12.5px; margin-right: 4px; }
-
-/* ---------- intro / form ---------- */
-.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
-.hero h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: clamp(38px, 6vw, 68px); line-height: 1.02; margin: 8px 0 18px; letter-spacing: -.01em; }
-.hero h1 em { font-style: italic; color: var(--accent); }
-.hero p.lead { font-size: 18px; color: var(--ink-2); max-width: 34em; margin: 0 0 14px; }
-.hero .note { font-size: 13px; color: var(--ink-2); }
-form.params { background: var(--paper); color: var(--paper-ink); border: 2px solid var(--line); border-radius: 4px; padding: 22px 22px 18px; box-shadow: 6px 6px 0 var(--line); }
-form.params h2 { margin: 0 0 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .12em; }
-form.params .sub { margin: 0 0 18px; font-size: 13px; color: var(--paper-ink-2); }
-.field { margin-bottom: 16px; }
-.field > label, .field > .lbl { display: block; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-.field .hint { font-weight: 400; color: var(--paper-ink-2); font-size: 12.5px; }
-.seg { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid var(--paper-ink); border-radius: 3px; overflow: hidden; }
-.seg input { position: absolute; opacity: 0; pointer-events: none; }
-.seg label { text-align: center; padding: 9px 6px; cursor: pointer; font-size: 15px; }
-.seg label:last-of-type { border-left: 1.5px solid var(--paper-ink); }
-.seg input:checked + label { background: var(--paper-ink); color: var(--paper); }
-.seg input:focus-visible + label { outline: 2px solid var(--focus); outline-offset: -4px; }
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.unit { display: flex; align-items: stretch; border: 1.5px solid var(--paper-ink); border-radius: 3px; background: #fff; }
-.unit input { flex: 1; min-width: 0; border: 0; background: transparent; font: inherit; font-size: 18px; padding: 8px 10px; color: #16140f; font-variant-numeric: tabular-nums; }
-.unit input:focus-visible { outline: none; }
-.unit:focus-within { outline: 2px solid var(--focus); outline-offset: 1px; }
-.unit span { display: grid; place-items: center; padding: 0 10px; font-size: 14px; color: var(--paper-ink-2); border-left: 1px solid var(--paper-hair); }
-.err { color: #b3261e; font-size: 13px; min-height: 1.2em; margin: 2px 0 10px; }
-.btn { appearance: none; border: 2px solid var(--paper-ink); background: var(--paper-ink); color: var(--paper); font: inherit; font-weight: 700; font-size: 16px; padding: 11px 18px; border-radius: 3px; cursor: pointer; width: 100%; }
-.btn:hover { background: var(--accent); border-color: var(--accent); }
-.ghost { appearance: none; background: transparent; color: var(--ink); border: 1.5px solid var(--ink); border-radius: 999px; font: inherit; font-size: 13px; font-weight: 700; padding: 6px 14px; cursor: pointer; }
-.ghost:hover { background: var(--ink); color: var(--bg); }
-
-/* ---------- result ---------- */
-.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 18px; }
-.toolbar .who { margin-right: auto; font-size: 14px; color: var(--ink-2); }
-.pack { display: grid; grid-template-columns: 340px 1fr; gap: 22px; align-items: start; }
-.panel { background: var(--paper); color: var(--paper-ink); border: 2px solid var(--line); border-radius: 4px; }
-.front { padding: 22px; position: sticky; top: 16px; display: flex; flex-direction: column; gap: 16px; min-height: 520px; }
-.front .since { font-size: 11px; text-transform: uppercase; letter-spacing: .16em; color: var(--paper-ink-2); }
-.front h2 { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-weight: 400; font-size: 46px; line-height: 1; margin: 2px 0 6px; }
-.front .kind { font-size: 15px; }
-.claims { display: flex; flex-wrap: wrap; gap: 6px; }
-.claim { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; border: 1.5px solid var(--paper-ink); border-radius: 999px; padding: 3px 9px; }
-.front .net { margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; border-top: 1.5px solid var(--paper-ink); padding-top: 12px; }
-.front .net .big { font-size: 34px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
-.front .net .small { font-size: 12px; color: var(--paper-ink-2); }
-.ns { display: inline-flex; flex-direction: column; border: 2px solid #8a8a8a; border-radius: 10px; padding: 4px 6px 6px; background: #fff; }
-.ns .t { font-size: 10px; font-weight: 700; color: #5a5a5a; letter-spacing: .04em; padding: 0 2px 3px; }
-.ns .row { display: flex; align-items: center; }
-.ns .l { width: 26px; height: 32px; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 17px; opacity: .55; }
-.ns .l:first-child { border-radius: 6px 0 0 6px; } .ns .l:last-child { border-radius: 0 6px 6px 0; }
-.ns .l.on { width: 38px; height: 44px; border-radius: 8px; opacity: 1; font-size: 26px; box-shadow: 0 0 0 2px #fff; position: relative; z-index: 1; margin: 0 -3px; }
-
-.back { padding: 20px 22px 22px; }
-.back h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .12em; margin: 22px 0 8px; }
-.back h3:first-child { margin-top: 0; }
-table.nt { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; border: 2px solid var(--paper-ink); }
-table.nt th, table.nt td { padding: 5px 9px; border-bottom: 1px solid var(--paper-ink); text-align: right; vertical-align: baseline; }
-table.nt th:first-child, table.nt td:first-child { text-align: left; }
-table.nt thead th { font-size: 13px; font-weight: 700; border-bottom: 2px solid var(--paper-ink); background: #f6f2ea; line-height: 1.25; }
-table.nt td.sub { padding-left: 22px; }
-table.nt tr.thick td { border-bottom-width: 2px; }
-table.nt td:nth-child(3), table.nt th:nth-child(3) { font-weight: 700; }
-table.nt td.pc, table.nt th.pc { width: 1%; white-space: nowrap; }
-.conf { display: inline-block; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--paper-ink); margin-left: 6px; vertical-align: 1px; }
-.conf.h { background: var(--paper-ink); }
-.conf.m { background: linear-gradient(90deg, var(--paper-ink) 50%, transparent 50%); }
-.conf.l { background: transparent; }
-.foot { font-size: 12px; color: var(--paper-ink-2); margin: 6px 0 0; line-height: 1.45; }
-.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--paper-ink-2); margin-top: 6px; }
-.legend .conf { margin: 0 4px 0 0; }
-.ingr { font-size: 14.5px; line-height: 1.55; margin: 0; }
-.ingr b { font-weight: 700; }
-.info { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: end; margin-top: 18px; border-top: 1.5px solid var(--paper-ink); padding-top: 14px; }
-.info dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; font-size: 13.5px; }
-.info dt { font-weight: 700; }
-.info dd { margin: 0; }
-.barcode svg { display: block; width: 190px; height: auto; background: #fff; }
-
-.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 22px 0 6px; }
-.tile { border-top: 2px solid var(--ink); padding-top: 8px; }
-.tile .v { font-size: 26px; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums; }
-.tile .k { font-size: 13px; color: var(--ink-2); }
-
-details.more { margin-top: 22px; border-top: 2px solid var(--ink); }
-details.more summary { cursor: pointer; padding: 14px 0; font-weight: 700; font-size: 17px; list-style: none; display: flex; justify-content: space-between; }
-details.more summary::-webkit-details-marker { display: none; }
-details.more summary::after { content: "+"; font-size: 22px; line-height: 1; }
-details.more[open] summary::after { content: "–"; }
-details.more .body { padding-bottom: 10px; }
-.cols { columns: 3 220px; column-gap: 28px; }
-.el { display: flex; justify-content: space-between; gap: 10px; break-inside: avoid; font-size: 14px; padding: 3px 0; border-bottom: 1px solid var(--hair); font-variant-numeric: tabular-nums; }
-.el .sym { display: inline-block; width: 2.2em; font-weight: 700; }
-.el .n { color: var(--ink-2); }
-table.asm { border-collapse: collapse; font-size: 14px; width: 100%; max-width: 640px; font-variant-numeric: tabular-nums; }
-table.asm td { padding: 5px 0; border-bottom: 1px solid var(--hair); }
-table.asm td:last-child { text-align: right; padding-left: 16px; white-space: nowrap; }
-.prose { max-width: 46em; font-size: 14.5px; color: var(--ink); }
-.prose li { margin-bottom: 6px; }
-.prose a { color: inherit; }
-footer.f { margin-top: 36px; font-size: 12.5px; color: var(--ink-2); }
-
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 [hidden] { display: none !important; }
 
-@media (max-width: 860px) {
-  .hero { grid-template-columns: 1fr; gap: 26px; }
-  .pack { grid-template-columns: 1fr; }
-  .front { position: static; min-height: 0; }
-  .tiles { grid-template-columns: repeat(2, 1fr); }
+/* ---------------- press sheet ---------------- */
+.sheet { position: relative; max-width: 1320px; margin: 0 auto; padding: 46px 52px 40px; }
+.reg { position: absolute; width: 26px; height: 26px; color: var(--board-ink); }
+.reg.tl { top: 12px; left: 14px; } .reg.tr { top: 12px; right: 14px; }
+.reg.bl { bottom: 10px; left: 14px; } .reg.br { bottom: 10px; right: 14px; }
+
+.slug { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin: 0 0 22px; font-size: 13px; font-stretch: 85%; }
+.slug .proof { margin-right: auto; color: var(--board-ink-2); }
+.slug .proof b { color: var(--board-ink); font-weight: 650; }
+.tool { appearance: none; background: transparent; border: 1.5px solid var(--board-ink); border-radius: 2px; padding: 4px 10px; font-weight: 650; font-size: 13px; font-stretch: 85%; cursor: pointer; }
+.tool:hover { background: var(--board-ink); color: var(--board); }
+.langs { display: inline-flex; gap: 0; }
+.langs .tool + .tool { border-left: 0; }
+.langs .tool[aria-pressed="true"] { background: var(--board-ink); color: var(--board); }
+
+/* ---------------- dieline ---------------- */
+.die {
+  --cut: 1.5px solid #000;
+  --fold: 1.5px dashed #000;
+  display: grid;
+  grid-template-columns: 30px minmax(320px, 370px) minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-rows: 64px auto 40px;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,.25)) drop-shadow(0 10px 18px rgba(40,30,10,.18));
 }
-@media (max-width: 480px) {
-  .back { padding: 16px 12px; }
-  table.nt { font-size: 13.5px; }
-  table.nt th, table.nt td { padding: 5px 6px; }
-  table.nt td.sub { padding-left: 14px; }
+.flap { position: relative; isolation: isolate; display: grid; place-items: center; padding: 8px 12% 6px; text-align: center; font-size: 13px; font-stretch: 80%; line-height: 1.25; color: #000; }
+.flap svg.shape { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; z-index: -1; }
+.flap svg.shape .f { fill: var(--pack); }
+.flap svg.shape .c { fill: none; stroke: #000; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.flap.top { grid-row: 1; }
+.flap.bottom { grid-row: 3; padding-top: 4px; }
+.flap.glue { grid-column: 1; grid-row: 2; writing-mode: vertical-rl; font-size: 12px; padding: 18px 4px; letter-spacing: .02em; }
+.c2 { grid-column: 2; } .c3 { grid-column: 3; } .c4 { grid-column: 4; }
+
+.panel { grid-row: 2; position: relative; background: var(--pack); color: #000; padding: 22px 22px 24px; border-top: var(--fold); border-bottom: var(--fold); min-width: 0; }
+.panel.front { border-left: var(--fold); }
+.panel.side { border-left: var(--fold); }
+.panel.back { border-left: var(--fold); border-right: var(--cut); }
+
+/* ---------------- front panel ---------------- */
+.warning { background: #fff; border: 5px solid #000; padding: 9px 12px 10px; font-size: 14px; line-height: 1.35; margin-bottom: 18px; }
+.warning b { font-weight: 800; font-size: 17px; display: block; margin-bottom: 1px; font-stretch: 90%; }
+.product { font-family: "Shrikhand", Georgia, serif; font-weight: 400; font-size: clamp(46px, 5vw, 62px); line-height: .92; margin: 0; letter-spacing: -.005em; }
+.product span { display: block; }
+.kind { margin: 6px 0 16px; font-size: 17px; font-stretch: 110%; font-weight: 500; }
+
+.window-wrap { position: relative; margin: 0 0 18px; }
+.window {
+  position: relative; background: #fff; overflow: hidden;
+  border-radius: 170px 170px 22px 22px;
+  box-shadow: inset 0 3px 0 rgba(0,0,0,.18), inset 0 0 0 1.5px rgba(0,0,0,.55);
+  aspect-ratio: 336 / 400;
+}
+.window::after { /* cellophane glare */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 18%, rgba(255,255,255,.55) 24%, transparent 31%, transparent 62%, rgba(255,255,255,.35) 66%, transparent 70%);
+}
+.window svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.window .empty { font-family: "Shrikhand", Georgia, serif; font-size: 22px; }
+.settle { font-size: 12.5px; line-height: 1.35; margin: 8px 4px 0; font-stretch: 90%; }
+.title-wrap { position: relative; }
+.burst { position: absolute; right: -34px; top: -10px; width: 112px; height: 112px; transform: rotate(-11deg); pointer-events: none; }
+.burst text { font-family: "Shrikhand", Georgia, serif; fill: #fff; }
+
+.riser { animation: rise 1.6s cubic-bezier(.35,.6,.2,1) both; }
+@keyframes rise { from { transform: translateY(400px); } to { transform: translateY(0); } }
+.labels { animation: labelsIn .5s ease-out 1.3s both; }
+@keyframes labelsIn { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .riser, .labels { animation: none; } }
+
+/* form */
+form.params { margin-top: 4px; }
+form.params h2 { font-family: "Shrikhand", Georgia, serif; font-weight: 400; font-size: 25px; line-height: 1.05; margin: 0 0 2px; }
+form.params .sub { margin: 0 0 14px; font-size: 13.5px; }
+.field { margin-bottom: 12px; }
+.field > label, .field > .lbl { display: block; font-size: 13.5px; font-weight: 700; margin-bottom: 4px; font-stretch: 90%; }
+.field .hint { font-weight: 400; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; border: 2px solid #000; background: #fff; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { text-align: center; padding: 7px 6px; cursor: pointer; font-size: 15px; }
+.seg label:last-of-type { border-left: 2px solid #000; }
+.seg input:checked + label { background: #000; color: var(--pack); font-weight: 700; }
+.seg input:focus-visible + label { outline: 3px solid var(--focus); outline-offset: -5px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.unit { display: flex; border: 2px solid #000; background: #fff; }
+.unit input { flex: 1; min-width: 0; border: 0; background: transparent; font-size: 18px; padding: 6px 9px; font-variant-numeric: tabular-nums; color: #000; }
+.unit input::placeholder { color: #77736b; font-size: 15px; }
+.unit input:focus-visible { outline: none; }
+.unit:focus-within { outline: 3px solid var(--focus); outline-offset: 1px; }
+.unit span { display: grid; place-items: center; padding: 0 9px; font-size: 14px; border-left: 1.5px solid #000; background: #f4f1e8; }
+.err { color: #a3001c; font-weight: 700; font-size: 13.5px; min-height: 1.3em; margin: 0 0 8px; }
+.print-btn {
+  appearance: none; width: 100%; cursor: pointer;
+  background: var(--magenta); color: #fff; border: 2px solid #000; border-radius: 3px;
+  font-family: "Shrikhand", Georgia, serif; font-size: 22px; padding: 8px 14px 10px;
+  box-shadow: 0 4px 0 #000; transition: transform .08s, box-shadow .08s;
+}
+.print-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #000; }
+
+/* after printing */
+.netrow { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; border-top: 2px solid #000; padding-top: 10px; }
+.netrow .k { font-size: 12.5px; font-stretch: 90%; }
+.netrow .big { white-space: nowrap; font-size: 34px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; font-stretch: 90%; }
+.netrow .mid { font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ns { display: inline-flex; flex-direction: column; border: 2px solid #8a8a8a; border-radius: 10px; padding: 3px 5px 5px; background: #fff; }
+.ns .t { font-size: 9.5px; font-weight: 700; color: #5a5a5a; letter-spacing: .04em; padding: 0 2px 3px; font-stretch: 100%; }
+.ns .row { display: flex; align-items: center; }
+.ns .l { width: 22px; height: 28px; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 15px; opacity: .5; }
+.ns .l:first-child { border-radius: 6px 0 0 6px; } .ns .l:last-child { border-radius: 0 6px 6px 0; }
+.ns .l.on { width: 32px; height: 38px; border-radius: 8px; opacity: 1; font-size: 22px; box-shadow: 0 0 0 2px #fff; position: relative; z-index: 1; margin: 0 -3px; }
+.front-actions { margin-top: 14px; }
+
+/* ---------------- label tables ---------------- */
+.labelbox { background: #fff; color: #000; padding: 12px 10px 10px; }
+.panel.side, .panel.back { padding-left: 16px; padding-right: 16px; }
+.labelbox + .labelbox { margin-top: 14px; }
+table.nt { width: 100%; border-collapse: collapse; font-size: 14.5px; font-variant-numeric: tabular-nums; font-stretch: 92%; }
+table.nt th, table.nt td { padding: 4px 6px; border-bottom: 1px solid #000; text-align: right; vertical-align: baseline; }
+table.nt th:first-child, table.nt td:first-child { text-align: left; padding-left: 0; hyphens: auto; -webkit-hyphens: auto; }
+table.nt td:last-child, table.nt th:last-child { padding-right: 0; }
+table.nt thead th { font-size: 12.5px; font-weight: 750; border-bottom: 3px solid #000; line-height: 1.2; font-stretch: 78%; vertical-align: bottom; }
+table.nt thead th:first-child { font-size: 17px; font-stretch: 85%; font-weight: 800; }
+table.nt td.sub { padding-left: 12px; }
+table.nt td:not(:first-child) { white-space: nowrap; }
+table.nt tr.thick td { border-bottom-width: 2px; }
+table.nt td:nth-child(3) { font-weight: 700; }
+table.nt .pc { width: 1%; white-space: nowrap; }
+table.nt tbody tr:last-child td { border-bottom: 0; }
+.conf { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid #000; margin-left: 5px; vertical-align: 1px; }
+.conf.h { background: #000; }
+.conf.m { background: linear-gradient(90deg, #000 50%, transparent 50%); }
+.foot { font-size: 11.5px; margin: 6px 0 0; line-height: 1.4; font-stretch: 90%; }
+.legend { display: flex; flex-wrap: wrap; gap: 2px 12px; font-size: 11.5px; margin-top: 6px; font-stretch: 90%; }
+.legend .conf { margin: 0 4px 0 0; }
+.ingr { font-size: 13.5px; line-height: 1.45; margin: 0; font-stretch: 92%; }
+.info { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: end; margin-top: 14px; }
+.info dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: 13px; font-stretch: 92%; }
+.info dt { font-weight: 750; }
+.info dd { margin: 0; }
+.barcode svg { display: block; width: 168px; height: auto; background: #fff; }
+
+.stamp {
+  position: absolute; z-index: 3; left: 50%; top: 38%; transform: translate(-50%, -50%) rotate(-17deg);
+  border: 5px solid var(--magenta); color: var(--magenta); border-radius: 6px;
+  padding: 2px 18px 4px; font-weight: 900; font-stretch: 125%; font-size: 54px; line-height: 1; letter-spacing: .04em;
+  background: rgba(255,255,255,.15); mix-blend-mode: multiply; pointer-events: none; white-space: nowrap;
+}
+.panel.sample .labelbox { opacity: .55; }
+
+/* ---------------- colour bar ---------------- */
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 22px; font-size: 12px; font-stretch: 85%; color: var(--board-ink-2); }
+.bar .patches { display: flex; border: 1px solid #000; }
+.bar .patches i { width: 16px; height: 16px; display: block; }
+
+/* ---------------- notes ---------------- */
+.notes { max-width: 1320px; margin: 0 auto; padding: 4px 52px 56px; }
+details.note { border-top: 2px solid var(--board-ink); }
+details.note:last-of-type { border-bottom: 2px solid var(--board-ink); }
+details.note summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 14px; padding: 12px 0 13px; font-family: "Shrikhand", Georgia, serif; font-size: 24px; line-height: 1.1; }
+details.note summary::-webkit-details-marker { display: none; }
+details.note summary::after { content: "+"; margin-left: auto; font-family: "Archivo", sans-serif; font-weight: 400; font-size: 28px; line-height: 1; }
+details.note[open] summary::after { content: "\2212"; }
+details.note .body { padding: 0 0 20px; }
+.lead2 { max-width: 62ch; font-size: 15px; margin: 0 0 14px; }
+.cols { columns: 4 200px; column-gap: 26px; }
+.el { display: flex; justify-content: space-between; gap: 10px; break-inside: avoid; font-size: 14px; padding: 3px 0; border-bottom: 1px solid color-mix(in srgb, var(--board-ink) 30%, transparent); font-variant-numeric: tabular-nums; font-stretch: 92%; }
+.el .sym { display: inline-block; width: 2.1em; font-weight: 800; }
+table.asm { border-collapse: collapse; font-size: 15px; width: 100%; max-width: 620px; font-variant-numeric: tabular-nums; }
+table.asm td { padding: 5px 0; border-bottom: 1px solid color-mix(in srgb, var(--board-ink) 30%, transparent); }
+table.asm td:last-child { text-align: right; padding-left: 16px; white-space: nowrap; font-weight: 650; }
+.prose { max-width: 66ch; font-size: 15px; }
+.prose li { margin-bottom: 6px; }
+footer.f { max-width: 1320px; margin: 0 auto; padding: 0 52px 40px; font-size: 13px; color: var(--board-ink-2); }
+
+/* ---------------- responsive: fold the sheet into a stack ---------------- */
+@media (max-width: 1280px) {
+  .die { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto auto; }
+  .flap { display: none; }
+  .panel { grid-row: auto; border: var(--cut); }
+  .panel.front { grid-column: 1; grid-row: 1 / span 2; border-right: 0; }
+  .panel.side { grid-column: 2; grid-row: 1; border-left: var(--fold); }
+  .panel.back { grid-column: 2; grid-row: 2; border-top: var(--fold); border-left: var(--fold); }
+  .window-wrap { max-width: 380px; margin-left: auto; margin-right: auto; }
+}
+@media (max-width: 800px) {
+  .sheet { padding: 40px 16px 34px; }
+  .notes, footer.f { padding-left: 16px; padding-right: 16px; }
+  .die { grid-template-columns: minmax(0, 1fr); }
+  .panel.front, .panel.side, .panel.back { grid-column: 1; grid-row: auto; border: var(--cut); }
+  .panel.side, .panel.back { border-top: var(--fold); }
+  .panel.front { border-bottom: 0; } .panel.side { border-bottom: 0; }
+  .burst { right: -6px; }
+}
+@media (max-width: 420px) {
+  .panel { padding: 16px 12px 18px; }
+  table.nt { font-size: 13px; }
+  table.nt th, table.nt td { padding: 4px 4px; }
   .info { grid-template-columns: 1fr; }
-  .front h2 { font-size: 40px; }
+  .stamp { font-size: 40px; }
 }
 @media print {
   body { background: #fff; }
-  .warn { border-color: #000; }
-  .toolbar, header.top .lang, details.more summary::after { display: none; }
-  .panel, form.params { box-shadow: none; }
-  details.more > .body { display: block; }
+  .slug .tool, .langs, .front-actions { display: none; }
+  .die { filter: none; }
+  details.note > .body { display: block; }
+  .riser, .labels { animation: none; }
 }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <div class="brand"><span class="e" aria-hidden="true">℮</span><span data-t="brand"></span></div>
-    <div class="lang" role="group" aria-label="Language / Sprache">
-      <button type="button" data-lang="de" aria-pressed="false">DE</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+<main class="sheet">
+  <svg class="reg tl" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="7" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M13 0v26M0 13h26" stroke="currentColor" stroke-width="1.2"/></svg>
+  <svg class="reg tr" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="7" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M13 0v26M0 13h26" stroke="currentColor" stroke-width="1.2"/></svg>
+  <svg class="reg bl" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="7" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M13 0v26M0 13h26" stroke="currentColor" stroke-width="1.2"/></svg>
+  <svg class="reg br" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="7" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M13 0v26M0 13h26" stroke="currentColor" stroke-width="1.2"/></svg>
+
+  <div class="slug">
+    <div class="proof" id="proof"></div>
+    <button type="button" class="tool" id="edit" data-t="edit" hidden></button>
+    <button type="button" class="tool" id="share" data-t="share" hidden></button>
+    <button type="button" class="tool" id="print" data-t="print"></button>
+    <div class="langs" role="group" aria-label="Language / Sprache">
+      <button type="button" class="tool" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" class="tool" data-lang="de" aria-pressed="false">DE</button>
     </div>
-  </header>
+  </div>
 
-  <p class="warn" role="note"><span class="warn-k" data-t="warnK"></span> <span data-t="warn"></span></p>
+  <div class="die">
+    <!-- top flaps carry facts once a label is printed -->
+    <div class="flap top c2"><svg class="shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon class="f" points="7,0 93,0 100,100 0,100"/><polyline class="c" points="0,100 7,0 93,0 100,100"/></svg><span id="flap1"></span></div>
+    <div class="flap top c3"><svg class="shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon class="f" points="5,0 95,0 100,100 0,100"/><polyline class="c" points="0,100 5,0 95,0 100,100"/></svg><span id="flap2"></span></div>
+    <div class="flap top c4"><svg class="shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon class="f" points="5,0 95,0 100,100 0,100"/><polyline class="c" points="0,100 5,0 95,0 100,100"/></svg><span id="flap3" data-t="flapOpen"></span></div>
+    <div class="flap glue"><svg class="shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon class="f" points="0,6 100,0 100,100 0,94"/><polyline class="c" points="100,0 0,6 0,94 100,100"/></svg><span data-t="glue"></span></div>
 
-  <!-- step 1: parameters -->
-  <section id="ask" class="hero">
-    <div>
-      <h1 data-t="h1"></h1>
-      <p class="lead" data-t="lead"></p>
-      <p class="note" data-t="privacy"></p>
-    </div>
-    <form class="params" id="form" novalidate>
-      <h2 data-t="formTitle"></h2>
-      <p class="sub" data-t="formSub"></p>
-      <div class="field">
-        <span class="lbl" data-t="sex"></span>
-        <div class="seg" role="radiogroup">
-          <input type="radio" name="sex" id="sex-f" value="f"><label for="sex-f" data-t="female"></label>
-          <input type="radio" name="sex" id="sex-m" value="m"><label for="sex-m" data-t="male"></label>
-        </div>
+    <section class="panel front" aria-label="Front">
+      <div class="warning" role="note"><b data-t="warnTitle"></b><span data-t="warn"></span></div>
+      <div class="title-wrap">
+        <h1 class="product"><span>Homo</span><span>sapiens</span></h1>
+        <p class="kind" data-t="kind"></p>
+        <svg class="burst" id="burst" viewBox="0 0 120 120" aria-hidden="true"></svg>
       </div>
-      <div class="grid2">
-        <div class="field">
-          <label for="age" data-t="age"></label>
-          <div class="unit"><input id="age" name="age" inputmode="numeric" autocomplete="off"><span data-t="years"></span></div>
-        </div>
-        <div class="field">
-          <label for="height" data-t="height"></label>
-          <div class="unit"><input id="height" name="height" inputmode="decimal" autocomplete="off"><span>cm</span></div>
-        </div>
+
+      <div class="window-wrap">
+        <div class="window" id="window"></div>
+        <p class="settle" id="settle" hidden data-t="settle"></p>
       </div>
-      <div class="grid2">
+
+      <form class="params" id="form" novalidate>
+        <h2 data-t="formTitle"></h2>
+        <p class="sub" data-t="formSub"></p>
         <div class="field">
-          <label for="weight" data-t="weight"></label>
-          <div class="unit"><input id="weight" name="weight" inputmode="decimal" autocomplete="off"><span>kg</span></div>
+          <span class="lbl" data-t="sex"></span>
+          <div class="seg" role="radiogroup">
+            <input type="radio" name="sex" id="sex-f" value="f"><label for="sex-f" data-t="female"></label>
+            <input type="radio" name="sex" id="sex-m" value="m"><label for="sex-m" data-t="male"></label>
+          </div>
         </div>
-        <div class="field">
-          <label for="bf"><span data-t="bf"></span> <span class="hint" data-t="optional"></span></label>
-          <div class="unit"><input id="bf" name="bf" inputmode="decimal" autocomplete="off" data-tp="bfPh"><span>%</span></div>
+        <div class="grid2">
+          <div class="field"><label for="age" data-t="age"></label><div class="unit"><input id="age" name="age" inputmode="numeric" autocomplete="off"><span data-t="years"></span></div></div>
+          <div class="field"><label for="height" data-t="height"></label><div class="unit"><input id="height" name="height" inputmode="decimal" autocomplete="off"><span>cm</span></div></div>
         </div>
+        <div class="grid2">
+          <div class="field"><label for="weight" data-t="weight"></label><div class="unit"><input id="weight" name="weight" inputmode="decimal" autocomplete="off"><span>kg</span></div></div>
+          <div class="field"><label for="bf"><span data-t="bf"></span> <span class="hint" data-t="optional"></span></label><div class="unit"><input id="bf" name="bf" inputmode="decimal" autocomplete="off" data-tp="bfPh"><span>%</span></div></div>
+        </div>
+        <p class="err" id="err" role="alert"></p>
+        <button class="print-btn" type="submit" data-t="submit"></button>
+      </form>
+
+      <div id="after" hidden>
+        <div class="netrow" id="netrow"></div>
+        <div class="front-actions"><button type="button" class="tool" id="edit2" data-t="edit"></button></div>
       </div>
-      <p class="err" id="err" role="alert"></p>
-      <button class="btn" type="submit" data-t="submit"></button>
-    </form>
-  </section>
+    </section>
 
-  <!-- step 2: the label -->
-  <section id="result" hidden>
-    <div class="toolbar">
-      <div class="who" id="who"></div>
-      <button type="button" class="ghost" id="edit" data-t="edit"></button>
-      <button type="button" class="ghost" id="share" data-t="share"></button>
-      <button type="button" class="ghost" id="print" data-t="print"></button>
-    </div>
+    <section class="panel side" id="side" aria-label="Side"></section>
+    <section class="panel back" id="back" aria-label="Back"></section>
 
-    <div class="pack">
-      <div class="panel front" id="front"></div>
-      <div class="panel back" id="back"></div>
-    </div>
+    <div class="flap bottom c2"><svg class="shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon class="f" points="0,0 100,0 94,100 6,100"/><polyline class="c" points="0,0 6,100 94,100 100,0"/></svg></div>
+    <div class="flap bottom c3"><svg class="shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon class="f" points="0,0 100,0 96,100 4,100"/><polyline class="c" points="0,0 4,100 96,100 100,0"/></svg><span data-t="tuck"></span></div>
+    <div class="flap bottom c4"><svg class="shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon class="f" points="0,0 100,0 96,100 4,100"/><polyline class="c" points="0,0 4,100 96,100 100,0"/></svg></div>
+  </div>
 
-    <div class="tiles" id="tiles"></div>
+  <div class="bar">
+    <span class="patches" aria-hidden="true"><i style="background:#009FE3"></i><i style="background:#E6007E"></i><i style="background:#FFED00"></i><i style="background:#000"></i><i style="background:#80cff1"></i><i style="background:#f280bf"></i><i style="background:#fff680"></i><i style="background:#808080"></i><i style="background:#c0c0c0"></i><i style="background:#fff"></i></span>
+    <span>human-nutrition.anishsheela.com</span>
+    <span data-t="inks"></span>
+  </div>
+</main>
 
-    <details class="more">
-      <summary data-t="elementsTitle"></summary>
-      <div class="body">
-        <p class="prose" data-t="elementsLead"></p>
-        <div class="cols" id="elements"></div>
-      </div>
-    </details>
-
-    <details class="more">
-      <summary data-t="modelTitle"></summary>
-      <div class="body"><table class="asm" id="assume"></table></div>
-    </details>
-
-    <details class="more">
-      <summary data-t="methodTitle"></summary>
-      <div class="body prose" id="method"></div>
-    </details>
-  </section>
-
-  <footer class="f" data-t="footer"></footer>
-</div>
+<section class="notes" id="notes">
+  <details class="note"><summary data-t="elementsTitle"></summary><div class="body"><p class="lead2" data-t="elementsLead"></p><div class="cols" id="elements"></div></div></details>
+  <details class="note"><summary data-t="modelTitle"></summary><div class="body"><table class="asm" id="assume"></table></div></details>
+  <details class="note"><summary data-t="methodTitle"></summary><div class="body prose" id="method"></div></details>
+</section>
+<footer class="f" data-t="footer"></footer>
 
 <script>
 "use strict";
@@ -279,99 +350,38 @@ footer.f { margin-top: 36px; font-size: 12.5px; color: var(--ink-2); }
    Strings
    =================================================================== */
 const T = {
-  de: {
-    brand: "Nährwert Mensch",
-    warnK: "Nur zum Spaß.",
-    warn: "Diese Seite ist ein Gedankenexperiment darüber, woraus ein Körper besteht, im Format eines Lebensmitteletiketts. Sie ermutigt in keiner Weise dazu, Menschen zu essen. Bitte nicht.",
-    h1: "Wie viel <em>Nährwert</em> steckt in einem Menschen?",
-    lead: "Gib ein paar Körperdaten ein und erhalte die vollständige Nährwertkennzeichnung, wie sie auf jeder Packung im deutschen Supermarkt steht: Brennwert, Fett, Kohlenhydrate, Eiweiß, Salz, Vitamine, Mineralstoffe und Spurenelemente, pro 100 g und pro Person.",
-    privacy: "Alles wird in deinem Browser berechnet. Nichts wird gespeichert oder an einen Server geschickt.",
-    formTitle: "Angaben zum Produkt",
-    formSub: "Erwachsene ab 18 Jahren. Die Werte sind Modellschätzungen, keine Messungen.",
-    sex: "Geschlecht (für die Schätzformeln)", female: "Weiblich", male: "Männlich",
-    age: "Alter", years: "Jahre", height: "Größe", weight: "Gewicht",
-    bf: "Körperfettanteil", optional: "(optional)", bfPh: "wird geschätzt",
-    submit: "Etikett erstellen",
-    errSex: "Bitte ein Geschlecht für die Schätzformeln wählen.",
-    errAge: "Alter: bitte 18 bis 110 Jahre.", errHeight: "Größe: bitte 120 bis 230 cm.",
-    errWeight: "Gewicht: bitte 30 bis 300 kg.", errBf: "Körperfettanteil: bitte 3 bis 70 % oder leer lassen.",
-    edit: "Angaben ändern", share: "Link kopieren", copied: "Kopiert ✓", print: "Drucken",
-    who: (p, d) => `${p.sex === "m" ? "Männlich" : "Weiblich"}, ${p.age} Jahre, ${d.n(p.height)} cm, ${d.n(p.weight)} kg${p.bf != null ? `, ${d.n(p.bf)} % Körperfett` : ""}`,
-    since: "Natur pur · seit ca. 300 000 Jahren",
-    kind: "Mensch, ganz, roh",
-    kindSub: (a) => a < 30 ? "junge Ware" : a < 60 ? "gut gereift" : "lange gereift",
-    nsTitle: "NUTRI-SCORE",
-    net: "Nettofüllmenge", drained: "Abtropfgewicht",
-    claimsNote: "Angaben gemäß Verordnung (EG) Nr. 1924/2006",
-    claims: { sugarFree: "Zuckerfrei", lowSugar: "Zuckerarm", highProtein: "Hoher Proteingehalt", sourceProtein: "Proteinquelle", ca: "Hoher Calciumgehalt", fe: "Hoher Eisengehalt", b12: "Hoher Vitamin-B12-Gehalt", p: "Hoher Phosphorgehalt" },
-    ntTitle: "Nährwertangaben", per100: "pro 100 g", perPerson: (w) => `pro Mensch<br>(${w})`, ri: "% RM*",
-    energy: "Brennwert", fat: "Fett", sat: "davon gesättigte Fettsäuren", mono: "davon einfach ungesättigte Fettsäuren", poly: "davon mehrfach ungesättigte Fettsäuren",
-    carb: "Kohlenhydrate", sugar: "davon Zucker", glycogen: "davon Glykogen", fibre: "Ballaststoffe", protein: "Eiweiß", salt: "Salz", chol: "Cholesterin",
-    riNote: "* Referenzmenge für einen durchschnittlichen Erwachsenen (8 400 kJ / 2 000 kcal).",
-    vmTitle: "Vitamine und Mineralstoffe", nrv: "% NRV**",
-    nrvNote: "** Nährstoffbezugswert nach Anhang XIII der Verordnung (EU) Nr. 1169/2011, bezogen auf die ganze Person.",
-    conf: { h: "gut belegt", m: "Schätzung", l: "grobe Schätzung" },
-    vit: { A: "Vitamin A", D: "Vitamin D", E: "Vitamin E", K: "Vitamin K", C: "Vitamin C", B1: "Thiamin (B1)", B2: "Riboflavin (B2)", B3: "Niacin", B6: "Vitamin B6", B9: "Folat", B12: "Vitamin B12", B7: "Biotin", B5: "Pantothensäure",
-           K_: "Kalium", Cl: "Chlorid", Ca: "Calcium", P: "Phosphor", Mg: "Magnesium", Fe: "Eisen", Zn: "Zink", Cu: "Kupfer", Mn: "Mangan", F: "Fluorid", Se: "Selen", Cr: "Chrom", Mo: "Molybdän", I: "Jod" },
-    ingrTitle: "Zutaten",
-    ingr: {
-      lead: "Zutaten:", water: "Wasser", fat: "Fett", fatSub: "Triglyceride, Phospholipide, Cholesterin",
-      protein: "Eiweiß", collagen: "Kollagen", myosin: "Myosin", actin: "Aktin", hb: "Hämoglobin", alb: "Albumin", other: "sonstige Proteine",
-      mineral: "Mineralstoffe", ha: "Hydroxylapatit", salts: "Kalium-, Natrium-, Chlorid- und Magnesiumsalze",
-      glycogen: "Glykogen", glucose: "Glucose", trace: "Spurenelemente"
-    },
-    traces: (list) => `Kann Spuren von ${list} enthalten.`,
-    notFood: "Nicht zum Verzehr bestimmt.",
-    storeK: "Lagerung", store: "Bei ca. 37 °C aufbewahren. Nicht einfrieren. Regelmäßig mit Wasser nachfüllen.",
-    bbK: "Mindestens haltbar bis", bb: (y) => `ca. ${y}***`,
-    lotK: "Los", origK: "Inverkehrbringer", orig: "Eltern",
-    bbNote: "*** Statistisch: fernere Lebenserwartung laut Sterbetafel des Statistischen Bundesamts (gerundet). Bei guter Pflege oft deutlich länger haltbar.",
-    tiles: { kcal: "Brennwert gesamt", days: "Tage Nahrung bei 2 000 kcal", blood: "Liter Blut", gold: "Gold, ungefähr" },
-    elementsTitle: "Zusammensetzung nach Elementen",
-    elementsLead: "Sauerstoff, Kohlenstoff, Wasserstoff und Stickstoff sind aus Wasser, Fett, Eiweiß und Kohlenhydraten berechnet; alle anderen Elemente sind nach Referenzwerten für einen 70‑kg‑Mann auf deine fettfreie Masse skaliert. Schwermetalle hängen in Wirklichkeit vor allem von der Umwelt ab.",
-    elSum: "Summe",
-    modelTitle: "Modellannahmen für diese Person",
-    asm: { bmi: "Body-Mass-Index", bf: "Körperfettanteil", bfEst: "geschätzt (Deurenberg)", bfGiven: "angegeben", fm: "Fettmasse", ffm: "Fettfreie Masse", water: "Körperwasser", sm: "Skelettmuskulatur", liver: "Leber", bv: "Blutvolumen (Nadler)", ecf: "Extrazelluläre Flüssigkeit", energyShare: "Energieanteil aus Eiweiß" },
-    methodTitle: "Methode und Quellen",
-    method: `<p>Das Modell zerlegt den Körper in Fettmasse und fettfreie Masse. Ohne Angabe wird der Körperfettanteil aus BMI, Alter und Geschlecht geschätzt (Deurenberg et al. 1991). Die fettfreie Masse besteht zu etwa 19,5 % aus Eiweiß, 6,8 % aus Mineralstoffen, rund 1 % aus Glykogen und Glucose und im Rest aus Wasser (molekulares Fünf‑Ebenen‑Modell, Wang et al. 1992).</p>
-<ul>
-<li><b>Brennwert:</b> Umrechnungsfaktoren der LMIV: Fett 37 kJ/g, Eiweiß und Kohlenhydrate je 17 kJ/g.</li>
-<li><b>Fettsäuren:</b> typisches Fettsäuremuster menschlichen Fettgewebes, rund 28 % gesättigt, 48 % einfach und 14 % mehrfach ungesättigt.</li>
-<li><b>Kohlenhydrate:</b> Muskelglykogen ca. 13 g/kg Muskel, Leberglykogen ca. 60 g/kg Leber (genährter Zustand), dazu freie Glucose in der extrazellulären Flüssigkeit (0,9 g/l).</li>
-<li><b>Salz:</b> Gesamtkörpernatrium × 2,5, wie es die LMIV für das Etikett vorschreibt.</li>
-<li><b>Mineralstoffe und Spurenelemente:</b> Referenzmann der ICRP (Publikation 23/89) und Emsley, <i>Nature's Building Blocks</i>; skaliert auf die fettfreie Masse. Eisen getrennt nach Geschlecht.</li>
-<li><b>Vitamine:</b> Körperbestände aus der ernährungsphysiologischen Literatur (z. B. Vitamin C ca. 1,5 g bei Sättigung, B12 2–5 mg, Folat 10–30 mg, B6 ca. 1 000 µmol). Fettlösliche Vitamine D und E sind überwiegend im Fettgewebe gespeichert und skalieren mit der Fettmasse. Bei Biotin, Pantothensäure, Niacin, Riboflavin und Vitamin K sind die Bestände schlecht untersucht; das zeigt der leere Kreis.</li>
-<li><b>Nutri-Score:</b> Algorithmus für feste Lebensmittel in der Fassung von 2017.</li>
-<li><b>Haltbarkeit:</b> fernere Lebenserwartung nach Alter und Geschlecht, Sterbetafel 2021/23 des Statistischen Bundesamts, gerundet und interpoliert.</li>
-</ul>
-<p>Das ist eine Populationsschätzung mit Unsicherheiten von leicht ±20 % und mehr. Für medizinische Fragen taugt sie nicht.</p>`,
-    footer: "Ein Gedankenexperiment in Etikettenform. Kein Lebensmittel, keine Aufforderung zum Verzehr, keine medizinische Auskunft.",
-  },
   en: {
     brand: "Human Nutrition Facts",
-    warnK: "Just for fun.",
-    warn: "This page is a thought experiment about what a body is made of, dressed up as a food label. It does not encourage eating humans in any way. Please don't.",
-    h1: "How much <em>nutritional value</em> is in a human?",
-    lead: "Enter a few body measurements and get the full nutrition declaration you would find on any product in a German supermarket: energy, fat, carbohydrate, protein, salt, vitamins, minerals and trace elements, per 100 g and per person.",
-    privacy: "Everything is calculated in your browser. Nothing is stored or sent to a server.",
-    formTitle: "Product details",
-    formSub: "Adults aged 18 and over. The figures are model estimates, not measurements.",
-    sex: "Sex (used by the estimation formulas)", female: "Female", male: "Male",
+    proofFor: (who) => `Proof for <b>${who}</b>`,
+    proofSample: "Proof with a <b>sample human</b>. Fill in the front panel to print your own.",
+    warnTitle: "Not for eating.",
+    warn: "This is a thought experiment about what a body is made of, printed as a food label. It does not encourage eating humans in any way.",
+    kind: "Human, whole",
+    formTitle: "What size is this pack?",
+    formSub: "For adults 18 and over. Nothing leaves your browser.",
+    sex: "Sex (the formulas need it)", female: "Female", male: "Male",
     age: "Age", years: "years", height: "Height", weight: "Weight",
-    bf: "Body fat", optional: "(optional)", bfPh: "estimated",
-    submit: "Make my label",
-    errSex: "Please choose a sex for the estimation formulas.",
-    errAge: "Age: please 18 to 110 years.", errHeight: "Height: please 120 to 230 cm.",
-    errWeight: "Weight: please 30 to 300 kg.", errBf: "Body fat: please 3 to 70 %, or leave it empty.",
-    edit: "Change details", share: "Copy link", copied: "Copied ✓", print: "Print",
-    who: (p, d) => `${p.sex === "m" ? "Male" : "Female"}, ${p.age} years, ${d.n(p.height)} cm, ${d.n(p.weight)} kg${p.bf != null ? `, ${d.n(p.bf)} % body fat` : ""}`,
-    since: "All natural · since c. 300,000 years ago",
-    kind: "Human, whole, raw",
-    kindSub: (a) => a < 30 ? "young stock" : a < 60 ? "well matured" : "long matured",
+    bf: "Body fat", optional: "(optional)", bfPh: "we'll estimate",
+    submit: "Print my label",
+    errSex: "Choose a sex for the estimation formulas.",
+    errAge: "Enter an age from 18 to 110.", errHeight: "Enter a height from 120 to 230 cm.",
+    errWeight: "Enter a weight from 30 to 300 kg.", errBf: "Enter body fat from 3 to 70 %, or leave it empty.",
+    edit: "Change details", share: "Copy link", copied: "Link copied", print: "Print",
+    who: (p, d) => `${p.sex === "m" ? "male" : "female"}, ${p.age} years, ${d.n(p.height)} cm, ${d.n(p.weight)} kg${p.bf != null ? `, ${d.n(p.bf)} % body fat` : ""}`,
+    windowEmpty: "Contents unknown",
+    settle: "Sorted by density, as if left to settle: minerals sink, fat floats. Each layer's share of the figure is its share of body weight.",
+    layers: { mineral: "Minerals", carb: "Carbohydrate", protein: "Protein", water: "Water", fat: "Fat" },
+    flapEnergy: (kcal, days) => `${kcal} kcal inside: ${days} days of food at 2,000 kcal a day`,
+    flapMore: (blood, gold) => `Also contains ${blood} of blood and ${gold} of gold`,
+    flapOpen: "Please do not open",
+    glue: "Glue here", tuck: "Tuck flap",
+    inks: "Printed in cyan, magenta, yellow and black, like the four layers in the window",
+    sample: "Sample",
     nsTitle: "NUTRI-SCORE",
     net: "Net quantity", drained: "Drained weight",
     claimsNote: "Claims per Regulation (EC) No 1924/2006",
-    claims: { sugarFree: "Sugars-free", lowSugar: "Low sugars", highProtein: "High protein", sourceProtein: "Source of protein", ca: "High in calcium", fe: "High in iron", b12: "High in vitamin B12", p: "High in phosphorus" },
+    claimsK: "Claims",
+    claims: { sugarFree: "Sugars-free", lowSugar: "Low sugars", highProtein: "High protein", sourceProtein: "Source of protein", ca: "High in calcium", fe: "High in iron", b12: "High in vitamin B12" },
     ntTitle: "Nutrition declaration", per100: "per 100 g", perPerson: (w) => `per human<br>(${w})`, ri: "% RI*",
     energy: "Energy", fat: "Fat", sat: "of which saturates", mono: "of which mono-unsaturates", poly: "of which polyunsaturates",
     carb: "Carbohydrate", sugar: "of which sugars", glycogen: "of which glycogen", fibre: "Fibre", protein: "Protein", salt: "Salt", chol: "Cholesterol",
@@ -381,7 +391,6 @@ const T = {
     conf: { h: "well established", m: "estimate", l: "rough estimate" },
     vit: { A: "Vitamin A", D: "Vitamin D", E: "Vitamin E", K: "Vitamin K", C: "Vitamin C", B1: "Thiamin (B1)", B2: "Riboflavin (B2)", B3: "Niacin", B6: "Vitamin B6", B9: "Folate", B12: "Vitamin B12", B7: "Biotin", B5: "Pantothenic acid",
            K_: "Potassium", Cl: "Chloride", Ca: "Calcium", P: "Phosphorus", Mg: "Magnesium", Fe: "Iron", Zn: "Zinc", Cu: "Copper", Mn: "Manganese", F: "Fluoride", Se: "Selenium", Cr: "Chromium", Mo: "Molybdenum", I: "Iodine" },
-    ingrTitle: "Ingredients",
     ingr: {
       lead: "Ingredients:", water: "Water", fat: "Fat", fatSub: "triglycerides, phospholipids, cholesterol",
       protein: "Protein", collagen: "collagen", myosin: "myosin", actin: "actin", hb: "haemoglobin", alb: "albumin", other: "other proteins",
@@ -394,13 +403,12 @@ const T = {
     bbK: "Best before", bb: (y) => `c. ${y}***`,
     lotK: "Lot", origK: "Food business operator", orig: "Parents",
     bbNote: "*** Statistically: remaining life expectancy from the German Federal Statistical Office life table (rounded). With good care, often keeps much longer.",
-    tiles: { kcal: "Total energy", days: "days of food at 2,000 kcal", blood: "litres of blood", gold: "gold, approximately" },
-    elementsTitle: "Composition by element",
-    elementsLead: "Oxygen, carbon, hydrogen and nitrogen are calculated from water, fat, protein and carbohydrate; every other element is scaled to your fat-free mass from reference values for a 70 kg man. In reality, heavy metals depend mostly on the environment.",
+    elementsTitle: "Element by element",
+    elementsLead: "Oxygen, carbon, hydrogen and nitrogen are calculated from the water, fat, protein and carbohydrate on the label. Every other element is scaled to your fat-free mass from reference values for a 70 kg man. In reality, heavy metals depend mostly on where you live.",
     elSum: "Total",
-    modelTitle: "Model assumptions for this person",
-    asm: { bmi: "Body mass index", bf: "Body fat", bfEst: "estimated (Deurenberg)", bfGiven: "entered", fm: "Fat mass", ffm: "Fat-free mass", water: "Total body water", sm: "Skeletal muscle", liver: "Liver", bv: "Blood volume (Nadler)", ecf: "Extracellular fluid", energyShare: "Share of energy from protein" },
-    methodTitle: "Method and sources",
+    modelTitle: "How this pack was sized",
+    asm: { bmi: "Body mass index", bf: "Body fat", bfEst: "estimated (Deurenberg)", bfGiven: "entered", fm: "Fat mass", ffm: "Fat-free mass", water: "Total body water", sm: "Skeletal muscle", liver: "Liver", bv: "Blood volume (Nadler)", ecf: "Extracellular fluid", energyShare: "Share of energy from protein", days: "Days of food at 2,000 kcal", gold: "Gold" },
+    methodTitle: "Where the numbers come from",
     method: `<p>The model splits the body into fat mass and fat-free mass. If you leave body fat empty, it is estimated from BMI, age and sex (Deurenberg et al. 1991). Fat-free mass is taken as about 19.5 % protein, 6.8 % minerals, roughly 1 % glycogen and glucose, and water for the rest (the five-level molecular model, Wang et al. 1992).</p>
 <ul>
 <li><b>Energy:</b> EU conversion factors from Regulation 1169/2011: fat 37 kJ/g, protein and carbohydrate 17 kJ/g each.</li>
@@ -414,6 +422,79 @@ const T = {
 </ul>
 <p>This is a population-level estimate, and ±20 % or more is easily within its error. It is no use for medical questions.</p>`,
     footer: "A thought experiment in the shape of a food label. Not food, not an invitation to eat anyone, not medical advice.",
+  },
+  de: {
+    brand: "Nährwert Mensch",
+    proofFor: (who) => `Andruck für <b>${who}</b>`,
+    proofSample: "Andruck mit einem <b>Mustermenschen</b>. Fülle die Vorderseite aus, um dein eigenes Etikett zu drucken.",
+    warnTitle: "Nicht zum Verzehr.",
+    warn: "Dies ist ein Gedankenexperiment darüber, woraus ein Körper besteht, gedruckt als Lebensmitteletikett. Es ermutigt in keiner Weise dazu, Menschen zu essen.",
+    kind: "Mensch, ganz",
+    formTitle: "Wie groß ist diese Packung?",
+    formSub: "Für Erwachsene ab 18. Nichts verlässt deinen Browser.",
+    sex: "Geschlecht (für die Schätzformeln)", female: "Weiblich", male: "Männlich",
+    age: "Alter", years: "Jahre", height: "Größe", weight: "Gewicht",
+    bf: "Körperfett", optional: "(optional)", bfPh: "wird geschätzt",
+    submit: "Etikett drucken",
+    errSex: "Wähle ein Geschlecht für die Schätzformeln.",
+    errAge: "Gib ein Alter von 18 bis 110 ein.", errHeight: "Gib eine Größe von 120 bis 230 cm ein.",
+    errWeight: "Gib ein Gewicht von 30 bis 300 kg ein.", errBf: "Gib einen Körperfettanteil von 3 bis 70 % ein oder lass das Feld leer.",
+    edit: "Angaben ändern", share: "Link kopieren", copied: "Link kopiert", print: "Drucken",
+    who: (p, d) => `${p.sex === "m" ? "männlich" : "weiblich"}, ${p.age} Jahre, ${d.n(p.height)} cm, ${d.n(p.weight)} kg${p.bf != null ? `, ${d.n(p.bf)} % Körperfett` : ""}`,
+    windowEmpty: "Inhalt unbekannt",
+    settle: "Nach Dichte sortiert, als hätte sich alles abgesetzt: Mineralstoffe sinken, Fett schwimmt oben. Jede Schicht nimmt so viel Fläche ein, wie sie am Körpergewicht ausmacht.",
+    layers: { mineral: "Mineralstoffe", carb: "Kohlenhydrate", protein: "Eiweiß", water: "Wasser", fat: "Fett" },
+    flapEnergy: (kcal, days) => `${kcal} kcal Inhalt: ${days} Tage Nahrung bei 2 000 kcal am Tag`,
+    flapMore: (blood, gold) => `Enthält außerdem ${blood} Blut und ${gold} Gold`,
+    flapOpen: "Bitte nicht öffnen",
+    glue: "Hier kleben", tuck: "Einstecklasche",
+    inks: "Gedruckt in Cyan, Magenta, Gelb und Schwarz, wie die vier Schichten im Fenster",
+    sample: "Muster",
+    nsTitle: "NUTRI-SCORE",
+    net: "Nettofüllmenge", drained: "Abtropfgewicht",
+    claimsNote: "Angaben gemäß Verordnung (EG) Nr. 1924/2006",
+    claimsK: "Angaben",
+    claims: { sugarFree: "Zuckerfrei", lowSugar: "Zuckerarm", highProtein: "Hoher Proteingehalt", sourceProtein: "Proteinquelle", ca: "Hoher Calciumgehalt", fe: "Hoher Eisengehalt", b12: "Hoher Vitamin-B12-Gehalt" },
+    ntTitle: "Nährwertangaben", per100: "pro 100 g", perPerson: (w) => `pro Mensch<br>(${w})`, ri: "% RM*",
+    energy: "Brennwert", fat: "Fett", sat: "davon gesättigte Fettsäuren", mono: "davon einfach ungesättigte Fettsäuren", poly: "davon mehrfach ungesättigte Fettsäuren",
+    carb: "Kohlenhydrate", sugar: "davon Zucker", glycogen: "davon Glykogen", fibre: "Ballaststoffe", protein: "Eiweiß", salt: "Salz", chol: "Cholesterin",
+    riNote: "* Referenzmenge für einen durchschnittlichen Erwachsenen (8 400 kJ / 2 000 kcal).",
+    vmTitle: "Vitamine und Mineralstoffe", nrv: "% NRV**",
+    nrvNote: "** Nährstoffbezugswert nach Anhang XIII der Verordnung (EU) Nr. 1169/2011, bezogen auf die ganze Person.",
+    conf: { h: "gut belegt", m: "Schätzung", l: "grobe Schätzung" },
+    vit: { A: "Vitamin A", D: "Vitamin D", E: "Vitamin E", K: "Vitamin K", C: "Vitamin C", B1: "Thiamin (B1)", B2: "Riboflavin (B2)", B3: "Niacin", B6: "Vitamin B6", B9: "Folat", B12: "Vitamin B12", B7: "Biotin", B5: "Pantothensäure",
+           K_: "Kalium", Cl: "Chlorid", Ca: "Calcium", P: "Phosphor", Mg: "Magnesium", Fe: "Eisen", Zn: "Zink", Cu: "Kupfer", Mn: "Mangan", F: "Fluorid", Se: "Selen", Cr: "Chrom", Mo: "Molybdän", I: "Jod" },
+    ingr: {
+      lead: "Zutaten:", water: "Wasser", fat: "Fett", fatSub: "Triglyceride, Phospholipide, Cholesterin",
+      protein: "Eiweiß", collagen: "Kollagen", myosin: "Myosin", actin: "Aktin", hb: "Hämoglobin", alb: "Albumin", other: "sonstige Proteine",
+      mineral: "Mineralstoffe", ha: "Hydroxylapatit", salts: "Kalium-, Natrium-, Chlorid- und Magnesiumsalze",
+      glycogen: "Glykogen", glucose: "Glucose", trace: "Spurenelemente"
+    },
+    traces: (list) => `Kann Spuren von ${list} enthalten.`,
+    notFood: "Nicht zum Verzehr bestimmt.",
+    storeK: "Lagerung", store: "Bei ca. 37 °C aufbewahren. Nicht einfrieren. Regelmäßig mit Wasser nachfüllen.",
+    bbK: "Mindestens haltbar bis", bb: (y) => `ca. ${y}***`,
+    lotK: "Los", origK: "Inverkehrbringer", orig: "Eltern",
+    bbNote: "*** Statistisch: fernere Lebenserwartung laut Sterbetafel des Statistischen Bundesamts (gerundet). Bei guter Pflege oft deutlich länger haltbar.",
+    elementsTitle: "Element für Element",
+    elementsLead: "Sauerstoff, Kohlenstoff, Wasserstoff und Stickstoff sind aus Wasser, Fett, Eiweiß und Kohlenhydraten des Etiketts berechnet. Alle anderen Elemente sind nach Referenzwerten für einen 70-kg-Mann auf deine fettfreie Masse skaliert. Schwermetalle hängen in Wirklichkeit vor allem davon ab, wo du lebst.",
+    elSum: "Summe",
+    modelTitle: "Wie diese Packung bemessen wurde",
+    asm: { bmi: "Body-Mass-Index", bf: "Körperfettanteil", bfEst: "geschätzt (Deurenberg)", bfGiven: "angegeben", fm: "Fettmasse", ffm: "Fettfreie Masse", water: "Körperwasser", sm: "Skelettmuskulatur", liver: "Leber", bv: "Blutvolumen (Nadler)", ecf: "Extrazelluläre Flüssigkeit", energyShare: "Energieanteil aus Eiweiß", days: "Tage Nahrung bei 2 000 kcal", gold: "Gold" },
+    methodTitle: "Woher die Zahlen kommen",
+    method: `<p>Das Modell zerlegt den Körper in Fettmasse und fettfreie Masse. Ohne Angabe wird der Körperfettanteil aus BMI, Alter und Geschlecht geschätzt (Deurenberg et al. 1991). Die fettfreie Masse besteht zu etwa 19,5 % aus Eiweiß, 6,8 % aus Mineralstoffen, rund 1 % aus Glykogen und Glucose und im Rest aus Wasser (molekulares Fünf-Ebenen-Modell, Wang et al. 1992).</p>
+<ul>
+<li><b>Brennwert:</b> Umrechnungsfaktoren der LMIV: Fett 37 kJ/g, Eiweiß und Kohlenhydrate je 17 kJ/g.</li>
+<li><b>Fettsäuren:</b> typisches Fettsäuremuster menschlichen Fettgewebes, rund 28 % gesättigt, 48 % einfach und 14 % mehrfach ungesättigt.</li>
+<li><b>Kohlenhydrate:</b> Muskelglykogen ca. 13 g/kg Muskel, Leberglykogen ca. 60 g/kg Leber (genährter Zustand), dazu freie Glucose in der extrazellulären Flüssigkeit (0,9 g/l).</li>
+<li><b>Salz:</b> Gesamtkörpernatrium × 2,5, wie es die LMIV für das Etikett vorschreibt.</li>
+<li><b>Mineralstoffe und Spurenelemente:</b> Referenzmann der ICRP (Publikation 23/89) und Emsley, <i>Nature's Building Blocks</i>; skaliert auf die fettfreie Masse. Eisen getrennt nach Geschlecht.</li>
+<li><b>Vitamine:</b> Körperbestände aus der ernährungsphysiologischen Literatur (z. B. Vitamin C ca. 1,5 g bei Sättigung, B12 2–5 mg, Folat 10–30 mg, B6 ca. 1 000 µmol). Fettlösliche Vitamine D und E sind überwiegend im Fettgewebe gespeichert und skalieren mit der Fettmasse. Bei Biotin, Pantothensäure, Niacin, Riboflavin und Vitamin K sind die Bestände schlecht untersucht; das zeigt der leere Kreis.</li>
+<li><b>Nutri-Score:</b> Algorithmus für feste Lebensmittel in der Fassung von 2017.</li>
+<li><b>Haltbarkeit:</b> fernere Lebenserwartung nach Alter und Geschlecht, Sterbetafel 2021/23 des Statistischen Bundesamts, gerundet und interpoliert.</li>
+</ul>
+<p>Das ist eine Populationsschätzung mit Unsicherheiten von leicht ±20 % und mehr. Für medizinische Fragen taugt sie nicht.</p>`,
+    footer: "Ein Gedankenexperiment in Etikettenform. Kein Lebensmittel, keine Aufforderung zum Verzehr, keine medizinische Auskunft.",
   }
 };
 
@@ -435,6 +516,7 @@ const ELEMENTS = [
   ["Be","Beryllium","Beryllium",0.000036],["W","Tungsten","Wolfram",0.00002],
 ];
 const REF_FFM = 56; // kg, fat-free mass of the 70 kg reference man
+const SAMPLE = { sex: "m", age: 35, height: 176, weight: 70, bf: 20 };
 
 /* EU reference intakes (Annex XIII 1169/2011), in grams. */
 const RI = { kJ: 8400, fat: 70, sat: 20, carb: 260, sugar: 90, protein: 50, salt: 6 };
@@ -490,7 +572,6 @@ function model(p) {
   const el = {};
   for (const [s, , , g] of ELEMENTS) el[s] = g * k;
   el.Fe = FFM * (male ? 0.062 : 0.052);
-  const ha = el.Ca / 0.399;                   // hydroxyapatite
   el.O = water * 0.8881 + fat * 0.111 + protein * 0.225 + carb * 0.494 + el.P * 2.065;
   el.C = fat * 0.769 + protein * 0.53 + carb * 0.444;
   el.H = water * 0.1119 + fat * 0.12 + protein * 0.07 + carb * 0.062;
@@ -523,7 +604,7 @@ function model(p) {
   };
 
   // Nutri-Score 2017, solid foods, per 100 g
-  const per = (g) => g / W / 10; // grams per 100 g of person
+  const per = (g) => g / W / 10;
   const pts = (v, steps) => steps.filter((s) => v > s).length;
   const N = pts(kJ / W / 10, [335, 670, 1005, 1340, 1675, 2010, 2345, 2680, 3015, 3350])
           + pts(per(sat), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -548,7 +629,7 @@ function model(p) {
 
   return { p, male, W, bmi, bf, bfEstimated: p.bf == null, FM, FFM, SM, liver, ECF, BV,
            fat, sat, mono, poly, protein, mineral, carb, glycogen, glucose, water, chol, salt, sodium, kJ, kcal,
-           hb, alb, myosin, actin, collagen, otherProt, ha, el, vit, min, score, grade, bestBefore, lot };
+           hb, alb, myosin, actin, collagen, otherProt, el, vit, min, score, grade, bestBefore, lot };
 }
 
 /* ===================================================================
@@ -562,8 +643,12 @@ function fmt() {
   const intF = new Intl.NumberFormat(loc, { maximumFractionDigits: 0 });
   const d1F = new Intl.NumberFormat(loc, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   const nF = new Intl.NumberFormat(loc, { maximumFractionDigits: 1 });
-  const sp = "\u00A0";
-  const sig = (v) => Math.abs(v) >= 1000 ? intF.format(Math.round(v / 10 ** (Math.floor(Math.log10(v)) - 2)) * 10 ** (Math.floor(Math.log10(v)) - 2)) : sigF.format(v);
+  const sp = " ";
+  const sig = (v) => {
+    if (Math.abs(v) < 1000) return sigF.format(v);
+    const q = 10 ** (Math.floor(Math.log10(Math.abs(v))) - 2);
+    return intF.format(Math.round(v / q) * q);
+  };
   const mass = (g) => {
     const a = Math.abs(g);
     if (a === 0) return "0" + sp + "g";
@@ -574,22 +659,121 @@ function fmt() {
   };
   const g1 = (g) => g >= 0.1 ? d1F.format(g) + sp + "g" : g === 0 ? "0" + sp + "g" : sig2F.format(g) + sp + "g";
   const pct = (v) => (v >= 10 ? intF.format(v) : nF.format(v)) + sp + "%";
-  return { mass, g1, pct, n: (v) => nF.format(v), int: (v) => intF.format(v), sig };
+  return { mass, g1, pct, n: (v) => nF.format(v), int: (v) => intF.format(v), sp };
 }
 
 /* ===================================================================
-   Rendering
+   The window: a figure filled with ink, layered by density
    =================================================================== */
-const $ = (s) => document.querySelector(s);
-let current = null;
+const FIG = { // viewBox units; the figure stands in a 336 x 400 window
+  head: [104, 58, 27],
+  neck: [93, 80, 22, 16],
+  rects: [
+    [62, 92, 84, 132, 24],   // torso
+    [36, 98, 22, 126, 11],   // left arm
+    [150, 98, 22, 126, 11],  // right arm
+    [66, 206, 34, 176, 15],  // left leg
+    [108, 206, 34, 176, 15], // right leg
+  ],
+  top: 31, bottom: 382,
+};
+function figShapes(attrs) {
+  const [cx, cy, r] = FIG.head, [nx, ny, nw, nh] = FIG.neck;
+  return `<circle cx="${cx}" cy="${cy}" r="${r}" ${attrs}/><rect x="${nx}" y="${ny}" width="${nw}" height="${nh}" ${attrs}/>` +
+    FIG.rects.map(([x, y, w, h, rx]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" ${attrs}/>`).join("");
+}
+let ROWS = null; // filled pixels per row of the silhouette, measured once
+function figRows() {
+  if (ROWS) return ROWS;
+  const c = document.createElement("canvas"); c.width = 336; c.height = 400;
+  const x = c.getContext("2d"); x.fillStyle = "#000";
+  const [cx, cy, r] = FIG.head, [nx, ny, nw, nh] = FIG.neck;
+  x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.fill();
+  x.fillRect(nx, ny, nw, nh);
+  for (const [rx, ry, w, h, rr] of FIG.rects) { x.beginPath(); x.roundRect ? x.roundRect(rx, ry, w, h, rr) : x.rect(rx, ry, w, h); x.fill(); }
+  const d = x.getImageData(0, 0, 336, 400).data;
+  ROWS = new Float64Array(400);
+  for (let y = 0; y < 400; y++) { let n = 0; for (let i = 0; i < 336; i++) n += d[(y * 336 + i) * 4 + 3] / 255; ROWS[y] = n; }
+  return ROWS;
+}
+/* For each layer (bottom first), find the y where the area below reaches its cumulative share. */
+function bands(layers) {
+  const rows = figRows();
+  const total = rows.reduce((a, b) => a + b, 0);
+  const sum = layers.reduce((a, l) => a + l.g, 0);
+  let y = 400; // fractional: the boundary can fall inside a row
+  const out = [];
+  for (const l of layers) {
+    const yb = y;
+    let need = total * (l.g / sum);
+    while (need > 0 && y > 0) {
+      const i = Math.ceil(y) - 1, avail = rows[i] * (y - i);
+      if (avail <= need) { need -= avail; y = i; }
+      else { y -= need / rows[i]; need = 0; }
+    }
+    out.push({ ...l, y0: y, y1: yb });
+  }
+  out[out.length - 1].y0 = 0; // the top layer runs to the top of the window
+  return out;
+}
 
-function applyStatic() {
-  const t = T[lang];
-  document.documentElement.lang = lang;
-  document.title = t.brand;
-  document.querySelectorAll("[data-t]").forEach((n) => { const v = t[n.dataset.t]; if (typeof v === "string") n.innerHTML = v; });
-  document.querySelectorAll("[data-tp]").forEach((n) => { n.placeholder = t[n.dataset.tp]; });
-  document.querySelectorAll(".lang button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+const INKS = {
+  fat:     { bg: "#FFF6A8", dot: "#F5C900" },
+  water:   { bg: "#C6E9F8", dot: "#009FE3" },
+  protein: { bg: "#F9C6E0", dot: "#E6007E" },
+  carb:    { bg: "#FFD3B8", dot: "#F04E23" },
+  mineral: { bg: "#9a9a9a", dot: "#000" },
+};
+function windowSVG(m, t, f) {
+  const outline = figShapes('fill="none" stroke="#000" stroke-width="5"');
+  const fillWhite = figShapes('fill="#fff"');
+  if (!m) {
+    return `<svg viewBox="0 0 336 400" role="img" aria-label="${t.windowEmpty}">
+      <g>${figShapes('fill="none" stroke="#000" stroke-width="6" stroke-dasharray="8 7"')}</g><g>${fillWhite}</g>
+      <text class="empty" x="104" y="190" text-anchor="middle" font-size="64">?</text>
+      <text x="236" y="210" font-family="Shrikhand, Georgia, serif" font-size="21">${t.windowEmpty.split(" ").map((w, i) => `<tspan x="214" dy="${i ? 26 : 0}">${w}</tspan>`).join("")}</text>
+    </svg>`;
+  }
+  const layers = [
+    { key: "mineral", g: m.mineral }, { key: "carb", g: m.carb }, { key: "protein", g: m.protein },
+    { key: "water", g: m.water }, { key: "fat", g: m.fat },
+  ];
+  const bs = bands(layers);
+  const pats = Object.entries(INKS).map(([k, c]) =>
+    `<pattern id="ht-${k}" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(${k === "water" ? 15 : k === "protein" ? 75 : k === "mineral" ? 45 : 0})"><rect width="7" height="7" fill="${c.bg}"/><circle cx="3.5" cy="3.5" r="2.5" fill="${c.dot}"/></pattern>`).join("");
+  const rects = bs.map((b) => `<rect x="0" y="${b.y0.toFixed(2)}" width="336" height="${(b.y1 - b.y0).toFixed(2)}" fill="url(#ht-${b.key})"/>`).join("");
+
+  // labels at band midpoints, pushed apart so they never overlap
+  const W = m.W * 1000;
+  let ls = bs.slice().reverse().map((b) => ({ ...b, ly: (Math.max(b.y0, FIG.top) + Math.min(b.y1, FIG.bottom)) / 2 }));
+  for (let i = 1; i < ls.length; i++) ls[i].ly = Math.max(ls[i].ly, ls[i - 1].ly + 34);
+  const over = ls[ls.length - 1].ly - 372;
+  if (over > 0) for (let i = ls.length - 1; i >= 0; i--) { ls[i].ly -= over; if (i && ls[i - 1].ly > ls[i].ly - 34) ls[i - 1].ly = ls[i].ly - 34; }
+  const lab = ls.map((b) => {
+    const mid = (Math.max(b.y0, FIG.top) + Math.min(b.y1, FIG.bottom)) / 2;
+    return `<path d="M176 ${mid.toFixed(1)} L196 ${mid.toFixed(1)} L208 ${b.ly.toFixed(1)} L216 ${b.ly.toFixed(1)}" fill="none" stroke="#000" stroke-width="1.5"/>
+      <text x="221" y="${(b.ly - 3).toFixed(1)}" font-family="Archivo, sans-serif" font-size="15" font-weight="800" style="font-stretch:85%">${t.layers[b.key]}</text>
+      <text x="221" y="${(b.ly + 13).toFixed(1)}" font-family="Archivo, sans-serif" font-size="13.5" style="font-stretch:85%">${f.pct(b.g / W * 100)} (${f.mass(b.g)})</text>`;
+  }).join("");
+
+  return `<svg viewBox="0 0 336 400" role="img" aria-label="${layers.map((l) => `${t.layers[l.key]} ${f.pct(l.g / W * 100)}`).join(", ")}">
+    <defs>${pats}
+      <clipPath id="fig">${figShapes("")}</clipPath>
+      <mask id="rise" maskUnits="userSpaceOnUse" x="0" y="0" width="336" height="400"><rect class="riser" x="0" y="0" width="336" height="400" fill="#fff"/></mask>
+    </defs>
+    <g>${outline}</g><g>${fillWhite}</g>
+    <g clip-path="url(#fig)"><g mask="url(#rise)">${rects}</g></g>
+    <g class="labels">${lab}</g>
+  </svg>`;
+}
+
+function burstSVG(text) {
+  const pts = [];
+  for (let i = 0; i < 36; i++) { const a = (i / 36) * Math.PI * 2, r = i % 2 ? 46 : 58; pts.push(`${(60 + r * Math.cos(a)).toFixed(1)},${(60 + r * Math.sin(a)).toFixed(1)}`); }
+  const words = text.replace(/-/, "-​").split(/\s|​/);
+  const fs = words.some((w) => w.length > 8) ? 15 : 18;
+  return `<polygon points="${pts.join(" ")}" fill="#E6007E" stroke="#000" stroke-width="2"/>` +
+    `<text x="60" y="${62 - (words.length - 1) * fs * 0.55}" text-anchor="middle" font-size="${fs}">${words.map((w, i) => `<tspan x="60" dy="${i ? fs * 1.1 : 0}">${w}</tspan>`).join("")}</text>`;
 }
 
 function ean13(digits12) {
@@ -606,54 +790,106 @@ function ean13(digits12) {
   for (let i = 7; i <= 12; i++) bits += R[d[i]];
   bits += "101";
   const guard = new Set([0,1,2,45,46,47,48,49,92,93,94]);
-  const x0 = 11, mw = 1;
   let bars = "";
-  for (let i = 0; i < bits.length; i++) if (bits[i] === "1") bars += `<rect x="${x0 + i * mw}" y="4" width="${mw}" height="${guard.has(i) ? 58 : 52}"/>`;
-  const txt = (s, x) => `<text x="${x}" y="70" font-size="9" font-family="Arial,Helvetica,sans-serif" text-anchor="middle">${s}</text>`;
+  for (let i = 0; i < bits.length; i++) if (bits[i] === "1") bars += `<rect x="${11 + i}" y="4" width="1" height="${guard.has(i) ? 58 : 52}"/>`;
+  const txt = (s, x) => `<text x="${x}" y="70" font-size="9" font-family="Archivo, Arial, sans-serif" text-anchor="middle">${s}</text>`;
   const str = d.join("");
-  return `<svg viewBox="0 0 117 74" role="img" aria-label="EAN ${str}"><rect width="117" height="74" fill="#fff"/><g fill="#000">${bars}</g>${txt(str[0], 5)}${txt(str.slice(1,7), 11 + 3 + 21)}${txt(str.slice(7), 11 + 50 + 21)}</svg>`;
+  return `<svg viewBox="0 0 117 74" role="img" aria-label="EAN ${str}"><rect width="117" height="74" fill="#fff"/><g fill="#000">${bars}</g>${txt(str[0], 5)}${txt(str.slice(1, 7), 35)}${txt(str.slice(7), 82)}</svg>`;
 }
 
-function render(m) {
+/* ===================================================================
+   Rendering
+   =================================================================== */
+const $ = (s) => document.querySelector(s);
+let current = null;    // model of the printed person, or null while showing the sample
+let animate = false;   // fill the window only right after "Print my label"
+
+function applyStatic() {
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.title = t.brand;
+  document.querySelectorAll("[data-t]").forEach((n) => { const v = t[n.dataset.t]; if (typeof v === "string") n.innerHTML = v; });
+  document.querySelectorAll("[data-tp]").forEach((n) => { n.placeholder = t[n.dataset.tp]; });
+  document.querySelectorAll(".langs .tool").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+}
+
+function claimsFor(m, t) {
+  const per100 = (g) => g / m.W / 10;
+  const c = [];
+  const s = per100(m.glucose);
+  if (s <= 0.5) c.push(t.claims.sugarFree); else if (s <= 5) c.push(t.claims.lowSugar);
+  const share = (m.protein * 17) / m.kJ;
+  if (share >= 0.2) c.push(t.claims.highProtein); else if (share >= 0.12) c.push(t.claims.sourceProtein);
+  if (per100(m.el.Ca) >= NRV.Ca * 0.3) c.push(t.claims.ca);
+  if (per100(m.vit.B12[0]) >= NRV.B12 * 0.3) c.push(t.claims.b12);
+  if (per100(m.el.Fe) >= NRV.Fe * 0.3) c.push(t.claims.fe);
+  return c;
+}
+
+function render() {
   const t = T[lang], f = fmt();
+  const printed = !!current;
+  const m = current || model(SAMPLE);
   const W = m.W;
   const per100 = (g) => g / W / 10;
 
-  $("#who").textContent = t.who(m.p, f);
+  // slug + toolbar
+  $("#proof").innerHTML = printed ? t.proofFor(t.who(m.p, f)) : t.proofSample;
+  $("#edit").hidden = !printed; $("#share").hidden = !printed;
 
-  // --- claims (EC 1924/2006)
-  const claims = [];
-  const sugar100 = per100(m.glucose);
-  if (sugar100 <= 0.5) claims.push(t.claims.sugarFree); else if (sugar100 <= 5) claims.push(t.claims.lowSugar);
-  const protShare = (m.protein * 17) / m.kJ;
-  if (protShare >= 0.2) claims.push(t.claims.highProtein); else if (protShare >= 0.12) claims.push(t.claims.sourceProtein);
-  if (per100(m.el.Ca) >= NRV.Ca * 0.3) claims.push(t.claims.ca);
-  if (per100(m.vit.B12[0]) >= NRV.B12 * 0.3) claims.push(t.claims.b12);
-  if (per100(m.el.Fe) >= NRV.Fe * 0.3) claims.push(t.claims.fe);
+  // front
+  const win = $("#window");
+  if (printed) {
+    win.innerHTML = windowSVG(m, t, f);
+    if (!animate) win.querySelectorAll(".riser, .labels").forEach((n) => n.style.animation = "none");
+  } else win.innerHTML = windowSVG(null, t, f);
+  animate = false;
+  $("#settle").hidden = !printed;
+  const claims = claimsFor(m, t);
+  $("#burst").innerHTML = burstSVG(claims[0] + "!");
+  $("#form").hidden = printed;
+  $("#after").hidden = !printed;
+  if (printed) {
+    const ns = ["A","B","C","D","E"].map((g) => `<span class="l${g === m.grade ? " on" : ""}" style="background:var(--ns-${g.toLowerCase()})">${g}</span>`).join("");
+    $("#netrow").innerHTML = `
+      <div><div class="k">${t.net}</div><div class="big">${f.n(W)}${f.sp}kg ℮</div></div>
+      <div><div class="k">${t.drained}</div><div class="mid">${f.mass(W * 1000 - m.water)}</div></div>
+      <div class="ns" role="img" aria-label="Nutri-Score ${m.grade}"><span class="t">${t.nsTitle}</span><div class="row">${ns}</div></div>`;
+  }
 
-  const ns = ["A","B","C","D","E"].map((g) => `<span class="l${g === m.grade ? " on" : ""}" style="background:var(--ns-${g.toLowerCase()})">${g}</span>`).join("");
+  // flaps
+  $("#flap1").textContent = t.flapEnergy(f.int(m.kcal), f.int(m.kcal / 2000));
+  $("#flap2").textContent = t.flapMore(f.n(m.BV) + f.sp + (lang === "de" ? "l" : "L"), f.mass(m.el.Au));
 
-  $("#front").innerHTML = `
-    <div>
-      <div class="since">${t.since}</div>
-      <h2>Homo sapiens</h2>
-      <div class="kind">${t.kind} · <span style="color:var(--paper-ink-2)">${t.kindSub(m.p.age)}</span></div>
-    </div>
-    <div class="claims" title="${t.claimsNote}">${claims.map((c) => `<span class="claim">${c}</span>`).join("")}</div>
-    <div><div class="ns" role="img" aria-label="Nutri-Score ${m.grade}"><span class="t">${t.nsTitle}</span><div class="row">${ns}</div></div></div>
-    <div class="net">
-      <div><div class="small">${t.net}</div><div class="big">${f.n(W)}&nbsp;kg ℮</div></div>
-      <div style="text-align:right"><div class="small">${t.drained}</div><div style="font-weight:700;font-size:18px">${f.mass(W * 1000 - m.water)}</div></div>
-    </div>`;
+  // label values shared by side and back panels
+  const vrow = (key, [g, c]) => `<tr><td>${t.vit[key]}<span class="conf ${c}" title="${t.conf[c]}"></span></td><td>${f.mass(per100(g))}</td><td>${f.mass(g)}</td><td class="pc">${f.pct(g / NRV[key] * 100)}</td></tr>`;
+  const I = t.ingr;
+  const q = (g) => { const v = g / (W * 1000) * 100; return v >= 1 ? ` (${f.int(v)}${f.sp}%)` : ""; };
+  const protParts = [[I.collagen, m.collagen], [I.myosin, m.myosin], [I.actin, m.actin], [I.hb, m.hb], [I.alb, m.alb], [I.other, m.otherProt]]
+    .sort((a, b) => b[1] - a[1]).map((x) => x[0]).join(", ");
+  const parts = [
+    [m.water, `${I.water}${q(m.water)}`],
+    [m.fat, `${I.fat}${q(m.fat)} [${I.fatSub}]`],
+    [m.protein, `${I.protein}${q(m.protein)} [${protParts}]`],
+    [m.mineral, `${I.mineral}${q(m.mineral)} [${I.ha}, ${I.salts}, ${I.trace}]`],
+    [m.glycogen, I.glycogen],
+    [m.glucose, I.glucose],
+  ].sort((a, b) => b[0] - a[0]).map((x) => x[1]);
+  const traceList = ["Pb", "Hg", "As", "Cd", "U", "Au"].map((s) => { const e = ELEMENTS.find((x) => x[0] === s); return `<b>${lang === "de" ? e[2] : e[1].toLowerCase()}</b> (${f.mass(m.el[s])})`; });
+  const joinList = (arr) => arr.slice(0, -1).join(", ") + (lang === "de" ? " und " : " and ") + arr[arr.length - 1];
+  const code = "29" + "37000" + String(Math.round(W * 100)).padStart(5, "0").slice(-5);
 
-  // --- nutrition table
+  // side: nutrition declaration
   const row = (label, g, ri, cls = "") => `<tr class="${cls}"><td class="${cls.includes("sub") ? "sub" : ""}">${label}</td><td>${f.g1(per100(g))}</td><td>${f.mass(g)}</td><td class="pc">${ri ? f.pct(g / ri * 100) : ""}</td></tr>`;
-  const kJ100 = m.kJ / W / 10, kcal100 = m.kcal / W / 10;
-  const nt = `
+  const stamp = printed ? "" : `<div class="stamp" aria-hidden="true">${t.sample}</div>`;
+  $("#side").classList.toggle("sample", !printed);
+  $("#back").classList.toggle("sample", !printed);
+  $("#side").innerHTML = `${stamp}
+    <div class="labelbox">
     <table class="nt">
-      <thead><tr><th>${t.ntTitle}</th><th>${t.per100}</th><th>${t.perPerson(f.n(W) + "&nbsp;kg")}</th><th class="pc">${t.ri}</th></tr></thead>
+      <thead><tr><th>${t.ntTitle}</th><th>${t.per100}</th><th>${t.perPerson(f.n(W) + f.sp + "kg")}</th><th class="pc">${t.ri}</th></tr></thead>
       <tbody>
-        <tr class="thick"><td>${t.energy}</td><td>${f.int(kJ100)}&nbsp;kJ /<br>${f.int(kcal100)}&nbsp;kcal</td><td>${f.int(m.kJ)}&nbsp;kJ /<br>${f.int(m.kcal)}&nbsp;kcal</td><td class="pc">${f.pct(m.kJ / RI.kJ * 100)}</td></tr>
+        <tr class="thick"><td>${t.energy}</td><td>${f.int(m.kJ / W / 10)}${f.sp}kJ /<br>${f.int(m.kcal / W / 10)}${f.sp}kcal</td><td>${f.int(m.kJ)}${f.sp}kJ /<br>${f.int(m.kcal)}${f.sp}kcal</td><td class="pc">${f.pct(m.kJ / RI.kJ * 100)}</td></tr>
         ${row(t.fat, m.fat, RI.fat)}
         ${row(t.sat, m.sat, RI.sat, "sub")}
         ${row(t.mono, m.mono, 0, "sub")}
@@ -667,88 +903,66 @@ function render(m) {
         ${row(t.chol, m.chol, 0)}
       </tbody>
     </table>
-    <p class="foot">${t.riNote}</p>`;
+    <p class="foot">${t.riNote}</p>
+    </div>
+    <div class="labelbox">
+      <p class="ingr"><b>${t.claimsK}:</b> ${claims.join(", ")}.</p>
+      <p class="foot">${t.claimsNote}.</p>
+    </div>
+    <div class="labelbox">
+      <p class="ingr"><b>${I.lead}</b> ${parts.join(", ")}. ${t.traces(joinList(traceList))} <b>${t.notFood}</b></p>
+    </div>`;
 
-  const vrow = (key, [g, c]) => `<tr><td>${t.vit[key]}<span class="conf ${c}" title="${t.conf[c]}"></span></td><td>${f.mass(per100(g))}</td><td>${f.mass(g)}</td><td class="pc">${f.pct(g / NRV[key] * 100)}</td></tr>`;
-  const vm = `
+  // back: vitamins & minerals, info
+  $("#back").innerHTML = `${stamp}
+    <div class="labelbox">
     <table class="nt">
-      <thead><tr><th>${t.vmTitle}</th><th>${t.per100}</th><th>${t.perPerson(f.n(W) + "&nbsp;kg")}</th><th class="pc">${t.nrv}</th></tr></thead>
+      <thead><tr><th>${t.vmTitle}</th><th>${t.per100}</th><th>${t.perPerson(f.n(W) + f.sp + "kg")}</th><th class="pc">${t.nrv}</th></tr></thead>
       <tbody>
         ${Object.entries(m.vit).map(([k, v]) => vrow(k, v)).join("")}
         ${Object.entries(m.min).map(([k, v]) => vrow(k, v)).join("")}
       </tbody>
     </table>
     <div class="legend"><span><span class="conf h"></span>${t.conf.h}</span><span><span class="conf m"></span>${t.conf.m}</span><span><span class="conf l"></span>${t.conf.l}</span></div>
-    <p class="foot">${t.nrvNote}</p>`;
-
-  // --- ingredients, by descending weight with QUID
-  const I = t.ingr;
-  const q = (g) => { const v = g / (W * 1000) * 100; return v >= 1 ? ` (${f.int(v)}&nbsp;%)` : ""; };
-  const protParts = [[I.collagen, m.collagen], [I.myosin, m.myosin], [I.actin, m.actin], [I.hb, m.hb], [I.alb, m.alb], [I.other, m.otherProt]]
-    .sort((a, b) => b[1] - a[1]).map((x) => x[0]).join(", ");
-  const parts = [
-    [m.water, `${I.water}${q(m.water)}`],
-    [m.fat, `${I.fat}${q(m.fat)} [${I.fatSub}]`],
-    [m.protein, `${I.protein}${q(m.protein)} [${protParts}]`],
-    [m.mineral, `${I.mineral}${q(m.mineral)} [${I.ha}, ${I.salts}, ${I.trace}]`],
-    [m.glycogen, I.glycogen],
-    [m.glucose, I.glucose],
-  ].sort((a, b) => b[0] - a[0]).map((x) => x[1]);
-  const traceSyms = ["Pb", "Hg", "As", "Cd", "U", "Au"];
-  const traceList = traceSyms.map((s) => { const e = ELEMENTS.find((x) => x[0] === s); return `<b>${lang === "de" ? e[2] : e[1].toLowerCase()}</b> (${f.mass(m.el[s])})`; });
-  const joinList = (arr) => arr.slice(0, -1).join(", ") + (lang === "de" ? " und " : " and ") + arr[arr.length - 1];
-
-  const code = "29" + "37000" + String(Math.round(W * 100)).padStart(5, "0").slice(-5);
-
-  $("#back").innerHTML = `
-    <h3>${t.ntTitle}</h3>${nt}
-    <h3>${t.vmTitle}</h3>${vm}
-    <h3>${t.ingrTitle}</h3>
-    <p class="ingr"><b>${I.lead}</b> ${parts.join(", ")}. ${t.traces(joinList(traceList))} ${t.notFood}</p>
-    <div class="info">
-      <dl>
-        <dt>${t.storeK}</dt><dd>${t.store}</dd>
-        <dt>${t.bbK}</dt><dd>${t.bb(m.bestBefore)}</dd>
-        <dt>${t.lotK}</dt><dd>L${m.lot}</dd>
-        <dt>${t.origK}</dt><dd>${t.orig}</dd>
-      </dl>
-      <div class="barcode">${ean13(code)}</div>
+    <p class="foot">${t.nrvNote}</p>
     </div>
-    <p class="foot">${t.bbNote}</p>
-    <p class="foot">${t.claimsNote}.</p>`;
+    <div class="labelbox">
+      <div class="info">
+        <dl>
+          <dt>${t.storeK}</dt><dd>${t.store}</dd>
+          <dt>${t.bbK}</dt><dd>${t.bb(m.bestBefore)}</dd>
+          <dt>${t.lotK}</dt><dd>L${m.lot}</dd>
+          <dt>${t.origK}</dt><dd>${t.orig}</dd>
+        </dl>
+        <div class="barcode">${ean13(code)}</div>
+      </div>
+      <p class="foot">${t.bbNote}</p>
+    </div>`;
 
-  // --- tiles
-  const gold = m.el.Au;
-  $("#tiles").innerHTML = [
-    [f.int(m.kcal) + "&nbsp;kcal", t.tiles.kcal],
-    [f.int(m.kcal / 2000), t.tiles.days],
-    [f.n(m.BV), t.tiles.blood],
-    [f.mass(gold), t.tiles.gold],
-  ].map(([v, k]) => `<div class="tile"><div class="v">${v}</div><div class="k">${k}</div></div>`).join("");
-
-  // --- elements
+  // notes: elements
   const els = [["O","Oxygen","Sauerstoff"],["C","Carbon","Kohlenstoff"],["H","Hydrogen","Wasserstoff"],["N","Nitrogen","Stickstoff"],["Fe","Iron","Eisen"], ...ELEMENTS.map((e) => [e[0], e[1], e[2]])];
   const seen = new Set();
   const list = els.filter((e) => !seen.has(e[0]) && seen.add(e[0])).map((e) => [e, m.el[e[0]]]).sort((a, b) => b[1] - a[1]);
   const total = list.reduce((s, x) => s + x[1], 0);
-  $("#elements").innerHTML = list.map(([e, g]) => `<div class="el"><span><span class="sym">${e[0]}</span><span class="n">${lang === "de" ? e[2] : e[1]}</span></span><span>${f.mass(g)}</span></div>`).join("")
-    + `<div class="el" style="border-bottom:2px solid var(--ink)"><span><b>${t.elSum}</b></span><b>${f.mass(total)}</b></div>`;
+  $("#elements").innerHTML = list.map(([e, g]) => `<div class="el"><span><span class="sym">${e[0]}</span>${lang === "de" ? e[2] : e[1]}</span><span>${f.mass(g)}</span></div>`).join("")
+    + `<div class="el"><span><b>${t.elSum}</b></span><b>${f.mass(total)}</b></div>`;
 
-  // --- assumptions
+  // notes: assumptions
   const A = t.asm;
   $("#assume").innerHTML = [
-    [A.bmi, f.n(m.bmi) + "&nbsp;kg/m²"],
-    [A.bf, f.pct(m.bf * 100) + " · " + (m.bfEstimated ? A.bfEst : A.bfGiven)],
+    [A.bmi, f.n(m.bmi) + f.sp + "kg/m²"],
+    [A.bf, f.pct(m.bf * 100) + ", " + (m.bfEstimated ? A.bfEst : A.bfGiven)],
     [A.fm, f.mass(m.FM * 1000)],
     [A.ffm, f.mass(m.FFM * 1000)],
     [A.water, f.mass(m.water) + " (" + f.pct(m.water / (W * 1000) * 100) + ")"],
     [A.sm, f.mass(m.SM * 1000)],
     [A.liver, f.mass(m.liver * 1000)],
-    [A.bv, f.n(m.BV) + "&nbsp;l"],
-    [A.ecf, f.n(m.ECF) + "&nbsp;l"],
-    [A.energyShare, f.pct(protShare * 100)],
+    [A.bv, f.n(m.BV) + f.sp + (lang === "de" ? "l" : "L")],
+    [A.ecf, f.n(m.ECF) + f.sp + (lang === "de" ? "l" : "L")],
+    [A.energyShare, f.pct((m.protein * 17) / m.kJ * 100)],
+    [A.days, f.int(m.kcal / 2000)],
+    [A.gold, f.mass(m.el.Au)],
   ].map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join("");
-
   $("#method").innerHTML = t.method;
 }
 
@@ -777,16 +991,16 @@ function fillForm(p) {
 }
 const parseNum = (s) => { s = String(s).trim().replace(",", "."); return s === "" ? null : Number(s); };
 
-function show(p) {
-  current = model(p);
-  render(current);
-  $("#ask").hidden = true; $("#result").hidden = false;
-  window.scrollTo({ top: 0 });
-}
 function route() {
   const p = readHash();
-  if (p && !validate(p)) { fillForm(p); show(p); }
-  else { $("#result").hidden = true; $("#ask").hidden = false; fillForm(p); }
+  fillForm(p);
+  current = p && !validate(p) ? model(p) : null;
+  render();
+}
+function editDetails() {
+  current = null; render();
+  $("#age").focus();
+  $(".panel.front").scrollIntoView({ block: "start", behavior: "smooth" });
 }
 
 $("#form").addEventListener("submit", (e) => {
@@ -799,21 +1013,23 @@ $("#form").addEventListener("submit", (e) => {
   if (err) return;
   const h = new URLSearchParams({ s: p.sex, a: p.age, h: p.height, w: p.weight });
   if (p.bf != null) h.set("bf", p.bf);
+  animate = true;
   // Setting an identical hash fires no hashchange, so re-route by hand.
   if (location.hash.slice(1) === h.toString()) route();
   else location.hash = h.toString();
 });
-$("#edit").addEventListener("click", () => { $("#result").hidden = true; $("#ask").hidden = false; $("#age").focus(); });
-$("#print").addEventListener("click", () => { document.querySelectorAll("details.more").forEach((d) => d.open = true); window.print(); });
+$("#edit").addEventListener("click", editDetails);
+$("#edit2").addEventListener("click", editDetails);
+$("#print").addEventListener("click", () => { document.querySelectorAll("details.note").forEach((d) => d.open = true); window.print(); });
 $("#share").addEventListener("click", async () => {
   const u = new URL(location.href); u.searchParams.set("lang", lang);
-  try { await navigator.clipboard.writeText(u.toString()); $("#share").textContent = T[lang].copied; setTimeout(() => $("#share").textContent = T[lang].share, 1600); } catch (_) { prompt("URL", u.toString()); }
+  try { await navigator.clipboard.writeText(u.toString()); $("#share").textContent = T[lang].copied; setTimeout(() => $("#share").textContent = T[lang].share, 1600); } catch (_) { /* clipboard blocked: the URL bar already holds the link */ }
 });
-document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", () => {
+document.querySelectorAll(".langs .tool").forEach((b) => b.addEventListener("click", () => {
   lang = b.dataset.lang;
   try { localStorage.setItem("lang", lang); } catch (_) {}
   applyStatic();
-  if (!$("#result").hidden && current) render(current);
+  render();
   $("#err").textContent = "";
 }));
 window.addEventListener("hashchange", route);

@@ -8,7 +8,7 @@ What is the nutritional value of a human? Enter sex, age, height and weight (bod
 
 ## How it works
 
-Everything is one file, `index.html`, with no build step and no dependencies. All calculation happens in the browser; the parameters live in the URL fragment (`#s=m&a=35&h=180&w=75`), which is never sent to the server. `?lang=de` or `?lang=en` picks the language; English is the default.
+Everything is one page, `index.html`, plus two self-hosted fonts in `fonts/`: no build step and no dependencies. The page is designed as a printer's proof of a flattened box, with a cellophane window on the front showing the body's contents layered by density (minerals sink, fat floats). All calculation happens in the browser; the parameters live in the URL fragment (`#s=m&a=35&h=180&w=75`), which is never sent to the server. `?lang=de` or `?lang=en` picks the language; English is the default.
 
 The model, in short:
 
@@ -24,3 +24,7 @@ These are population-level estimates with ±20 % or more of error. Not medical a
 ## Hosting
 
 Served by nginx on a NixOS box. The page is copied into the NixOS config repo and served from the Nix store, so deploying means copying `index.html` over and running `nixos-rebuild switch`.
+
+## Fonts
+
+[Archivo](https://fonts.google.com/specimen/Archivo) and [Shrikhand](https://fonts.google.com/specimen/Shrikhand), both under the SIL Open Font License 1.1. They are self-hosted rather than loaded from Google's CDN, which German courts have ruled a GDPR problem.
